@@ -65,20 +65,20 @@ class SaleController extends Controller
 
     public function store(Request $request)
     {
+        $request->validate([
+            'received' => 'required|numeric',
+        ]);
+
         $sale = Sale::find(session('sale_id'));
         $sale = $sale->update([
             'total_items' => $request->total_items,
             'total_price' => $request->total_price,
         ]);
 
-        // session(['last_sale' => [
-        //     'id' => session('sale_id'),
-        //     'total_items' => $request->total_items,
-        //     'total_price' => $request->total_price,
-        //     'cashier' => auth()->user()->name,
-        //     'received' => $request->received,
-        //     'change' => $request->change,
-        // ]]);
+        session(['last_sale' => [
+            'id' => session('sale_id'),
+            'received' => $request->received,
+        ]]);
 
         session()->forget('sale_id');
 
@@ -142,9 +142,23 @@ class SaleController extends Controller
         $saleDetail = SaleDetail::where('sale_id', $id);
         $saleDetail->delete();
 
+        (session('sale_id') == $id) ? session()->forget('sale_id') : null;
+
         return response()->json(
             'Data berhasil dihapus!',
             200
         );
+    }
+
+    public function print()
+    {
+        (session('last_sale')) ?: abort(404);
+
+        $sale = Sale::find(session('last_sale')['id']);
+        $saleDetail = SaleDetail::with('products')
+            ->where('sale_id', session('last_sale')['id'])
+            ->get();
+
+        return view('sale.print', compact('sale', 'saleDetail'));
     }
 }
