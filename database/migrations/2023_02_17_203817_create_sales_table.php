@@ -16,11 +16,6 @@ return new class extends Migration
             $table->integer('total_items');
             $table->integer('total_price');
             $table->integer('user_id');
-            // $table->foreignId('user_id')
-            //     ->references('id')
-            //     ->on('categories')
-            //     ->onDelete('restrict')
-            //     ->onUpdate('restrict');
             $table->timestamps();
         });
     }

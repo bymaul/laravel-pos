@@ -31,7 +31,7 @@
                                         aria-expanded="false" data-bs-toggle="dropdown" href="#"><span
                                             class="d-none d-lg-inline me-2 text-gray-600 small">{{ Auth::user()->name }}</span><img
                                             class="border rounded-circle img-profile"
-                                            src="{{ asset('assets/img/avatars/avatar1.jpeg') }}"></a>
+                                            src="{{ auth()->user()->avatar ? asset(auth()->user()->avatar) : asset('assets/img/default.jpg') }}"></a>
                                     <div class="dropdown-menu shadow dropdown-menu-end animated--grow-in">
                                         <a class="dropdown-item" href="{{ route('profile.edit') }}">
                                             <i class="fas fa-user fa-sm fa-fw me-3 text-gray-400"></i>Profil</a>

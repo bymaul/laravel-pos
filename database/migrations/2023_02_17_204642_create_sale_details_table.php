@@ -14,11 +14,6 @@ return new class extends Migration
         Schema::create('sale_details', function (Blueprint $table) {
             $table->id();
             $table->integer('sale_id');
-            // $table->foreignId('product_id')
-            //     ->references('id')
-            //     ->on('products')
-            //     ->onDelete('restrict')
-            //     ->onUpdate('restrict');
             $table->integer('product_id');
             $table->integer('price');
             $table->integer('quantity');
