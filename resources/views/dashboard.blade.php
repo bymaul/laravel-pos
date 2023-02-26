@@ -112,7 +112,6 @@
                                         class="fas fa-ellipsis-v text-gray-400"></i></button>
                                 <div class="dropdown-menu shadow dropdown-menu-end animated--fade-in">
                                     <a class="dropdown-item" href="{{ route('sale.index') }}">&nbsp;Lihat Detail</a>
-                                    <a class="dropdown-item" href="{{ route('report.index') }}">&nbsp;Cetak Laporan</a>
                                 </div>
                             </div>
                         </div>

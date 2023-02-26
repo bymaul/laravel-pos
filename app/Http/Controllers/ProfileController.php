@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ProfileUpdateRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Redirect;
 
 class ProfileController extends Controller
@@ -36,24 +36,19 @@ class ProfileController extends Controller
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
     }
 
-    /**
-     * Delete the user's account.
-     */
-    public function destroy(Request $request): RedirectResponse
+    public function store(Request $request)
     {
-        $request->validateWithBag('userDeletion', [
-            'password' => ['required', 'current-password'],
+        $request->validate([
+            'avatar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
-        $user = $request->user();
+        $avatarName = time() . '.' . $request->avatar->getClientOriginalExtension();
+        $request->avatar->move(public_path('assets/img'), $avatarName);
 
-        Auth::logout();
+        File::exists(public_path(Auth()->user()->avatar)) ? File::delete(public_path(Auth()->user()->avatar)) : '';
 
-        $user->delete();
+        Auth()->user()->update(['avatar' => 'assets/img/' . $avatarName]);
 
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-
-        return Redirect::to('/');
+        return back()->with('success', 'Foto profil berhasil diperbarui!');
     }
 }
