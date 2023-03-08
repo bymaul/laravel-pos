@@ -25,51 +25,11 @@ class DatabaseSeeder extends Seeder
             'name' => 'Ice Coffee',
         ]);
 
-        $createMultipleProducts = [
-            [
-                'category_id' => 1,
-                'code' => 'PRD-000001',
-                'name' => 'Caramel Coffee',
-                'price' => 15000,
-            ],
-            [
-                'category_id' => 1,
-                'code' => 'PRD-000002',
-                'name' => 'Vanilla Coffee',
-                'price' => 15000,
-            ],
-            [
-                'category_id' => 1,
-                'code' => 'PRD-000003',
-                'name' => 'Pandan Coffee',
-                'price' => 15000,
-            ],
-            [
-                'category_id' => 1,
-                'code' => 'PRD-000004',
-                'name' => 'Matcha Coffee',
-                'price' => 15000,
-            ],
-            [
-                'category_id' => 1,
-                'code' => 'PRD-000005',
-                'name' => 'Aren Coffee',
-                'price' => 15000,
-            ],
-            [
-                'category_id' => 1,
-                'code' => 'PRD-000006',
-                'name' => 'Moccachino Coffee',
-                'price' => 15000,
-            ],
-            [
-                'category_id' => 1,
-                'code' => 'PRD-000007',
-                'name' => 'Black Coffee',
-                'price' => 10000,
-            ]
-        ];
-
-        \App\Models\Product::insert($createMultipleProducts);
+        \App\Models\Product::create([
+            'category_id' => 1,
+            'code' => 'PRD-000001',
+            'name' => 'Caramel Coffee',
+            'price' => 15000,
+        ]);
     }
 }
