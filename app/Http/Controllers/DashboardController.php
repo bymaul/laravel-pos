@@ -12,41 +12,44 @@ class DashboardController extends Controller
     {
         $categories = Category::count();
         $products = Product::count();
-        $today_sales = Sale::whereDate('created_at', date('Y-m-d'))->count();
-        $month_sales = Sale::whereMonth('created_at', date('m'))->count();
-        $today_revenue = Sale::whereDate('created_at', date('Y-m-d'))->sum('total_price');
-        $month_revenue = Sale::whereMonth('created_at', date('m'))->sum('total_price');
-        $start_date = $startDate = date('Y-m-d', mktime(0, 0, 0, date('m'), 1, date('Y')));
-        $end_date = date('Y-m-d');
-        $label_chart = [];
-        $data_chart = [];
+        $todaySales = Sale::whereDate('created_at', date('Y-m-d'))->count();
+        $monthSales = Sale::whereMonth('created_at', date('m'))->count();
+        $todayRevenue = Sale::whereDate('created_at', date('Y-m-d'))->sum('total_price');
+        $monthRevenue = Sale::whereMonth('created_at', date('m'))->sum('total_price');
+        $startDate = date('Y-m-01');
+        $endDate = date('Y-m-d');
+        $labelChart = [];
+        $dataChart = [];
 
-        while (strtotime($start_date) <= strtotime($end_date)) {
-            $sales = Sale::whereDate('created_at', $start_date)->get();
+        while (strtotime($startDate) <= strtotime($endDate)) {
+            $sales = Sale::whereDate('created_at', $startDate)->get();
             $total_sales = 0;
 
             foreach ($sales as $sale) {
                 $total_sales += $sale->total_price;
             }
 
-            $label_chart[] = (int) date('d', strtotime($start_date));
+            $labelChart[] = (int) date('d', strtotime($startDate));
 
-            $data_chart[] += $total_sales;
+            $dataChart[] += $total_sales;
 
-            $start_date = date('Y-m-d', strtotime('+1 day', strtotime($start_date)));
+            $startDate = date('Y-m-d', strtotime('+1 day', strtotime($startDate)));
         }
+
+        // reset date from loop
+        $startDate = date('Y-m-01');
 
         return view('dashboard', compact(
             'categories',
             'products',
-            'today_revenue',
-            'month_revenue',
-            'start_date',
-            'end_date',
-            'label_chart',
-            'data_chart',
-            'today_sales',
-            'month_sales',
+            'todayRevenue',
+            'monthRevenue',
+            'startDate',
+            'endDate',
+            'labelChart',
+            'dataChart',
+            'todaySales',
+            'monthSales',
         ));
     }
 }

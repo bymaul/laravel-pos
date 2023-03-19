@@ -7,8 +7,9 @@
             @if (Auth()->user()->role == 'admin')
                 <a class="btn btn-primary btn-sm d-none d-sm-inline-block btn-icon-split" role="button"
                     href="{{ route('report.index') }}">
-                    <span class="icon text-white-50"><i class="fas fa-download fa-sm text-white-50"></i></span><span
-                        class="text">Cetak Laporan</span></a>
+                    <span class="icon text-white-50"><i class="fas fa-download fa-sm text-white-50"></i></span>
+                    <span class="text">Cetak Laporan</span>
+                </a>
             @endif
         </div>
         <div class="row">
@@ -22,7 +23,7 @@
                                         <span>Pendapatan Hari Ini</span>
                                     </div>
                                     <div class="text-dark fw-bold h5 mb-0">
-                                        <span>Rp{{ indonesia_format($today_revenue) }}</span>
+                                        <span>Rp{{ indonesia_format($todayRevenue) }}</span>
                                     </div>
                                 </div>
                             @else
@@ -31,7 +32,7 @@
                                         <span>Penjualan Hari Ini</span>
                                     </div>
                                     <div class="text-dark fw-bold h5 mb-0">
-                                        <span>{{ indonesia_format($today_sales) }}</span>
+                                        <span>{{ indonesia_format($todaySales) }}</span>
                                     </div>
                                 </div>
                             @endif
@@ -50,7 +51,7 @@
                                         <span>Pendapatan Bulan Ini</span>
                                     </div>
                                     <div class="text-dark fw-bold h5 mb-0">
-                                        <span>Rp{{ indonesia_format($month_revenue) }}</span>
+                                        <span>Rp{{ indonesia_format($monthRevenue) }}</span>
                                     </div>
                                 </div>
                             @else
@@ -59,7 +60,7 @@
                                         <span>Penjualan Bulan Ini</span>
                                     </div>
                                     <div class="text-dark fw-bold h5 mb-0">
-                                        <span>{{ indonesia_format($month_sales) }}</span>
+                                        <span>{{ indonesia_format($monthSales) }}</span>
                                     </div>
                                 </div>
                             @endif
@@ -105,8 +106,8 @@
                 <div class="col-12">
                     <div class="card shadow mb-4">
                         <div class="card-header d-flex justify-content-between align-items-center">
-                            <h6 class="text-primary fw-bold m-0">Pendapatan {{ indonesia_date($start_date) }} s/d
-                                {{ indonesia_date($end_date) }}</h6>
+                            <h6 class="text-primary fw-bold m-0">Pendapatan {{ indonesia_date($startDate) }} s/d
+                                {{ indonesia_date($endDate) }}</h6>
                             <div class="dropdown no-arrow"><button class="btn btn-link btn-sm dropdown-toggle"
                                     aria-expanded="false" data-bs-toggle="dropdown" type="button"><i
                                         class="fas fa-ellipsis-v text-gray-400"></i></button>
@@ -127,18 +128,18 @@
         @endif
     </div>
     @push('scripts')
-        <script src="{{ asset('assets/js/chart.min.min.js') }}"></script>
-
         @if (Auth()->user()->role == 'admin')
+            <script src="{{ asset('assets/js/chart.min.min.js') }}"></script>
+
             <script>
                 new Chart($('.chart-area canvas'), {
                     "type": "line",
                     "data": {
-                        "labels": {{ json_encode($label_chart) }},
+                        "labels": {{ json_encode($labelChart) }},
                         "datasets": [{
                             "label": "Pendapatan",
                             "fill": true,
-                            "data": {{ json_encode($data_chart) }},
+                            "data": {{ json_encode($dataChart) }},
                             "backgroundColor": "rgba(78, 115, 223, 0.05)",
                             "borderColor": "rgba(78, 115, 223, 1)"
                         }]

@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Sale;
-use Illuminate\Support\Facades\Response;
-use PDF;
 
 class ReportController extends Controller
 {
