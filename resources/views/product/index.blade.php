@@ -57,7 +57,7 @@
                                     <th>Nama</th>
                                     <th>Kategori</th>
                                     <th>Harga</th>
-                                    <th width="10%">Aksi</th>
+                                    <th width="10%"></th>
                                 </tr>
                             </thead>
                         </table>
@@ -67,6 +67,8 @@
         </div>
     </div>
     @includeIf('product.form')
+    @includeIf('components.toast')
+    @includeIf('components.modal')
 
     @push('scripts')
         <script>
@@ -75,7 +77,6 @@
             $(function() {
                 table = $('#dataTable').DataTable({
                     responsive: true,
-                    serverSide: true,
                     autoWidth: false,
                     ajax: {
                         url: "{{ route('product.data') }}",
@@ -117,9 +118,17 @@
                             .done((response) => {
                                 $('#productModal').modal('hide');
                                 table.ajax.reload();
+
+                                $('#toast').addClass('text-bg-success')
+                                    .removeClass('text-bg-danger');
+                                $('#toast').toast('show');
+                                $('#toast .toast-body').text('Data berhasil disimpan!');
                             })
                             .fail((error) => {
-                                alert('Tidak dapat menyimpan data!');
+                                $('#toast').addClass('text-bg-danger')
+                                    .removeClass('text-bg-success');
+                                $('#toast').toast('show');
+                                $('#toast .toast-body').text('Tidak dapat menyimpan data!');
                                 return;
                             })
                     }
@@ -156,42 +165,72 @@
                         $('#productModal [name=productPrice]').val(response.price);
                     })
                     .fail((error) => {
-                        alert('Tidak dapat menampilkan data!');
+                        $('#toast').addClass('text-bg-danger')
+                            .removeClass('text-bg-success');
+                        $('#toast').toast('show');
+                        $('#toast .toast-body').text('Tidak dapat menyimpan data!');
                         return;
                     });
             }
 
             function deleteData(url) {
-                if (confirm('Apakah Anda yakin ingin menghapus data ini?')) {
+                $('#confirmModal').modal('show');
+                $('#confirmModal .modal-body').text('Apakah Anda yakin ingin menghapus data ini?');
+
+                $('#confirmDelete').click(function() {
                     $.post(url, {
                             '_method': 'delete',
                             '_token': $('[name=csrf-token]').attr('content')
                         })
                         .done((response) => {
+                            $('#confirmModal').modal('hide');
                             table.ajax.reload();
+
+                            $('#toast').addClass('text-bg-success')
+                                .removeClass('text-bg-danger');
+                            $('#toast').toast('show');
+                            $('#toast .toast-body').text('Data berhasil dihapus!');
                         })
                         .fail((error) => {
-                            alert('Tidak dapat menghapus data!');
+                            $('#toast').addClass('text-bg-danger')
+                                .removeClass('text-bg-success');
+                            $('#toast').toast('show');
+                            $('#toast .toast-body').text('Tidak dapat menghapus data!');
                             return;
                         })
-                }
+                })
             }
 
             function deleteSelected(url) {
-                if ($('input:checked').length > 1) {
-                    if (confirm('Apakah Anda yakin ingin menghapus data terpilih?')) {
+                if ($('input:checked').length >= 1) {
+                    $('#confirmModal').modal('show');
+                    $('#confirmModal .modal-body').text('Apakah Anda yakin ingin menghapus data terpilih?');
+
+                    $('#confirmDelete').click(function() {
                         $.post(url, $('.selectedForm').serialize())
                             .done((response) => {
                                 $('input:checked').prop('checked', false);
+                                $('#confirmModal').modal('hide');
                                 table.ajax.reload();
+
+                                $('#toast').addClass('text-bg-success')
+                                    .removeClass('text-bg-danger');
+                                $('#toast').toast('show');
+                                $('#toast .toast-body').text('Data berhasil dihapus!');
                             })
                             .fail((errors) => {
-                                alert('Tidak dapat menghapus data');
+                                $('#toast').addClass('text-bg-danger')
+                                    .removeClass('text-bg-success');
+                                $('#toast').toast('show');
+                                $('#toast .toast-body').text('Tidak dapat menghapus data!');
                                 return;
-                            });
-                    }
+                            })
+                    });
                 } else {
-                    alert('Pilih data yang akan dihapus');
+                    $('#toast').addClass('text-bg-danger')
+                        .removeClass('text-bg-success');
+                    $('#toast').toast('show');
+                    $('#toast .toast-body').text('Pilih data yang akan dihapus!');
                     return;
                 }
             }

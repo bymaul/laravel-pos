@@ -28,7 +28,7 @@
                                 <th width="5%">No.</th>
                                 <th>Nama</th>
                                 <th>Email</th>
-                                <th width="10%">Aksi</th>
+                                <th width="10%"></th>
                             </tr>
                         </thead>
                     </table>
@@ -37,6 +37,8 @@
         </div>
     </div>
     @includeIf('user.form')
+    @includeIf('components.toast')
+    @includeIf('components.modal')
 
     @push('scripts')
         <script>
@@ -44,7 +46,7 @@
 
             $(function() {
                 table = $('#dataTable').DataTable({
-                    serverSide: true,
+                    responsive: true,
                     autoWidth: false,
                     ajax: {
                         url: "{{ route('user.data') }}",
@@ -72,9 +74,17 @@
                             success: function(data) {
                                 $('#userModal').modal('hide');
                                 table.ajax.reload();
+
+                                $('#toast').addClass('text-bg-success')
+                                    .removeClass('text-bg-danger');
+                                $('#toast').toast('show');
+                                $('#toast .toast-body').text('Berhasil menyimpan pengguna!');
                             },
                             error: function() {
-                                alert('Tidak dapat menyimpan data!');
+                                $('#toast').addClass('text-bg-danger')
+                                    .removeClass('text-bg-success');
+                                $('#toast').toast('show');
+                                $('#toast .toast-body').text('Tidak dapat menyimpan pengguna!');
                                 return;
                             }
                         });
@@ -113,25 +123,40 @@
                         $('#userModal [name=email]').val(response.email);
                     })
                     .fail((error) => {
-                        alert('Tidak dapat menampilkan data!');
+                        $('#toast').addClass('text-bg-danger')
+                            .removeClass('text-bg-success');
+                        $('#toast').toast('show');
+                        $('#toast .toast-body').text('Tidak dapat menampilkan pengguna!');
                         return;
                     });
             }
 
             function deleteData(url) {
-                if (confirm('Apakah Anda yakin ingin menghapus data ini?')) {
+                $('#confirmModal').modal('show');
+                $('#confirmModal .modal-body').text('Apakah Anda yakin ingin menghapus data ini?');
+
+                $('#confirmDelete').click(function() {
                     $.post(url, {
                             '_method': 'delete',
                             '_token': '{{ csrf_token() }}'
                         })
                         .done((response) => {
+                            $('#confirmModal').modal('hide');
                             table.ajax.reload();
+
+                            $('#toast').addClass('text-bg-success')
+                                .removeClass('text-bg-danger');
+                            $('#toast').toast('show');
+                            $('#toast .toast-body').text('Berhasil menghapus pengguna!');
                         })
                         .fail((error) => {
-                            alert('Tidak dapat menghapus data!');
+                            $('#toast').addClass('text-bg-danger')
+                                .removeClass('text-bg-success');
+                            $('#toast').toast('show');
+                            $('#toast .toast-body').text('Tidak dapat menghapus pengguna!');
                             return;
                         })
-                }
+                })
             }
         </script>
     @endpush

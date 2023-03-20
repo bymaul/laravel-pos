@@ -36,9 +36,16 @@ class ProductController extends Controller
             })
             ->addColumn('action', function ($products) {
                 return '
-                <div class="btn-group">
-                <a onclick="editForm(`' . route('product.update', $products->id) . '`)" class="btn btn-sm btn-primary">Perbarui</a>
-                <a onclick="deleteData(`' . route('product.destroy', $products->id) . '`)" class="btn btn-sm btn-danger">Hapus</a>
+                <div class="d-flex justify-content-center">
+                    <div class="dropdown no-arrow">
+                        <a class="btn btn-sm dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="true">
+                            <i class="fas fa-ellipsis-v"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a onclick="editForm(`' . route('product.update', $products->id) . '`)" class="dropdown-item" href="#">Perbarui</a></li>
+                            <li><a onclick="deleteData(`' . route('product.destroy', $products->id) . '`)" class="dropdown-item" href="#">Hapus</a></li>
+                        </ul>
+                    </div>
                 </div>
                 ';
             })

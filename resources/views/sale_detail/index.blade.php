@@ -48,7 +48,7 @@
                                         <th width="20%">Harga</th>
                                         <th width="15%">Jumlah</th>
                                         <th width="20%">Subtotal</th>
-                                        <th width="10%">Aksi</th>
+                                        <th width="10%"></th>
                                     </tr>
                                 </thead>
                             </table>
@@ -110,6 +110,9 @@
         </div>
     </div>
     @includeIf('sale_detail.product')
+    @includeIf('components.toast')
+    @includeIf('components.modal')
+
     @push('scripts')
         <script>
             let productTable, table;
@@ -134,7 +137,6 @@
 
             table = $('#dataTable').DataTable({
                 responsive: true,
-                serverSide: true,
                 autoWidth: false,
                 ajax: {
                     url: '{{ route('transaction.data', $sale_id) }}',
@@ -191,11 +193,19 @@
 
                 if (quantity < 1) {
                     $(this).val(1);
-                    alert('Jumlah tidak boleh kurang dari 1');
+
+                    $('#toast').addClass('text-bg-danger')
+                        .removeClass('text-bg-success');
+                    $('#toast').toast('show');
+                    $('#toast .toast-body').text('Jumlah tidak boleh kurang dari 1!');
                     return;
                 } else if (quantity > 10000) {
                     $(this).val(10000);
-                    alert('Jumlah tidak boleh lebih dari 10000');
+
+                    $('#toast').addClass('text-bg-danger')
+                        .removeClass('text-bg-success');
+                    $('#toast').toast('show');
+                    $('#toast .toast-body').text('Jumlah tidak boleh lebih dari 10000!');
                     return;
                 }
 
@@ -204,11 +214,14 @@
                     '_method': 'put',
                     'quantity': quantity
                 }).done(response => {
-                    $(this).on('mouseout', function() {
+                    $(this).on('change', function() {
                         table.ajax.reload(() => loadForm($('#inputReceive').val()));
                     });
                 }).fail(errors => {
-                    alert('Tidak dapat menambahkan kuantitas');
+                    $('#toast').addClass('text-bg-danger')
+                        .removeClass('text-bg-success');
+                    $('#toast').toast('show');
+                    $('#toast .toast-body').text('Tidak dapat menambahkan kuantitas!');
                     return;
                 });
             });
@@ -232,27 +245,43 @@
                 $.post('{{ route('transaction.store') }}', $('.productForm').serialize())
                     .done(response => {
                         table.ajax.reload(() => loadForm($('#inputReceive').val()));
+
+                        $('#toast').addClass('text-bg-success')
+                            .removeClass('text-bg-danger');
+                        $('#toast').toast('show');
+                        $('#toast .toast-body').text('Berhasil menambahkan produk!');
                     })
                     .fail(errors => {
-                        alert('Tidak dapat menyimpan data');
+                        $('#toast').addClass('text-bg-danger')
+                            .removeClass('text-bg-success');
+                        $('#toast').toast('show');
+                        $('#toast .toast-body').text('Tidak dapat menambahkan produk!');
                         return;
                     });
             }
 
             function deleteData(url) {
-                if (confirm('Yakin ingin menghapus data terpilih?')) {
+                $('#confirmModal').modal('show');
+                $('#confirmModal .modal-body').text('Yakin ingin menghapus produk terpilih?');
+
+                $('#confirmDelete').click(function() {
                     $.post(url, {
                             '_token': $('[name=csrf-token]').attr('content'),
                             '_method': 'delete'
                         })
                         .done((response) => {
+                            $('#confirmModal').modal('hide');
+
                             table.ajax.reload(() => loadForm($('#inputReceive').val()));
                         })
                         .fail((errors) => {
-                            alert('Tidak dapat menghapus data');
+                            $('#toast').addClass('text-bg-danger')
+                                .removeClass('text-bg-success');
+                            $('#toast').toast('show');
+                            $('#toast .toast-body').text('Tidak dapat menghapus data!');
                             return;
                         });
-                }
+                })
             }
 
             function loadForm(received = 0) {
@@ -266,7 +295,10 @@
                         $('#inputChange').val('Rp' + response.change);
                     })
                     .fail(errors => {
-                        alert('Tidak dapat menampilkan detail transaksi');
+                        $('#toast').addClass('text-bg-danger')
+                            .removeClass('text-bg-success');
+                        $('#toast').toast('show');
+                        $('#toast .toast-body').text('Tidak dapat menampilkan detail transaksi!');
                         return;
                     })
             }

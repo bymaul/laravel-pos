@@ -36,7 +36,7 @@ class SaleDetailController extends Controller
             $row['price'] = 'Rp' . indonesia_format($item->price);
             $row['quantity'] = '<input type="number" class="form-control form-control-sm quantity" data-id="' . $item->id . '" value="' . $item->quantity . '">';
             $row['subtotal'] = 'Rp' . indonesia_format($item->subtotal);
-            $row['action'] = '<a onclick="deleteData(`' . route('transaction.destroy', $item->id) . '`)" class="btn btn-danger btn-icon-split"><span
+            $row['action'] = '<a onclick="deleteData(`' . route('transaction.destroy', $item->id) . '`)" class="btn btn-sm btn-danger btn-icon-split"><span
                                         class="icon text-white-50"><i class="fas fa-trash"></i></span>
                                     <span class="text">Hapus</span></a>';
             $data[] = $row;

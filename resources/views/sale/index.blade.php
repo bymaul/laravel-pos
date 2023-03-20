@@ -40,7 +40,7 @@
                                 <th>Total Item</th>
                                 <th>Total Harga</th>
                                 <th width="20%">Kasir</th>
-                                <th width="10%">Aksi</th>
+                                <th width="10%"></th>
                             </tr>
                         </thead>
                     </table>
@@ -49,26 +49,16 @@
         </div>
     </div>
     @includeIf('sale.detail')
+    @includeIf('components.toast')
+    @includeIf('components.modal')
 
     @push('scripts')
         <script>
-            const toastTrigger = document.getElementById('liveToastBtn')
-            const toastLiveExample = document.getElementById('liveToast')
-            if (toastTrigger) {
-                toastTrigger.addEventListener('click', () => {
-                    const toast = new bootstrap.Toast(toastLiveExample)
-
-                    toast.show()
-                })
-            }
-
-
             let table, detailTable;
 
             $(function() {
                 table = $('#dataTable').DataTable({
                     responsive: true,
-                    serverSide: true,
                     autoWidth: false,
                     ajax: {
                         url: "{{ route('sale.data') }}",
@@ -127,19 +117,31 @@
             }
 
             function deleteData(url) {
-                if (confirm('Apakah Anda yakin ingin menghapus data ini?')) {
+                $('#confirmModal').modal('show');
+                $('#confirmModal .modal-body').text('Apakah Anda yakin ingin menghapus data ini?');
+
+                $('#confirmDelete').click(function() {
                     $.post(url, {
                             '_method': 'delete',
                             '_token': '{{ csrf_token() }}'
                         })
                         .done((response) => {
+                            $('#confirmModal').modal('hide');
                             table.ajax.reload();
+
+                            $('#toast').addClass('text-bg-success')
+                                .removeClass('text-bg-danger');
+                            $('#toast').toast('show');
+                            $('#toast .toast-body').text('Berhasil menghapus data!');
                         })
                         .fail((error) => {
-                            alert('Tidak dapat menghapus data!');
+                            $('#toast').addClass('text-bg-danger')
+                                .removeClass('text-bg-success');
+                            $('#toast').toast('show');
+                            $('#toast .toast-body').text('Tidak dapat menghapus data!');
                             return;
                         })
-                }
+                })
             }
 
             function printNote(url, title) {

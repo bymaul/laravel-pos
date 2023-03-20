@@ -14,7 +14,7 @@
                                 <th>Kode</th>
                                 <th>Nama</th>
                                 <th>Harga</th>
-                                <th width="5%">Aksi</th>
+                                <th width="5%"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -25,7 +25,7 @@
                                     <td>{{ $item->name }}</td>
                                     <td>Rp{{ indonesia_format($item->price) }}</td>
                                     <td width="5%">
-                                        <a class="btn btn-primary btn-icon-split"
+                                        <a class="btn btn-sm btn-primary btn-icon-split"
                                             onclick="chooseProduct('{{ $item->id }}', '{{ $item->code }}')">
                                             <span class="icon text-white-50"><i class="fas fa-check"></i></span>
                                             <span class="text">Pilih</span>

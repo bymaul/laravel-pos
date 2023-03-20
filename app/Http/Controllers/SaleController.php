@@ -39,10 +39,17 @@ class SaleController extends Controller
             })
             ->addColumn('action', function ($sales) {
                 return '
-                <div class="btn-group">
-                <a onclick="showDetail(`' . route('sale.show', $sales->id) . '`)" class="btn btn-sm btn-secondary">Detail</a>
-                <a href="' .  route('sale.edit', $sales->id) . '" class="btn btn-sm btn-primary">Perbarui</a>
-                <a onclick="deleteData(`' . route('sale.destroy', $sales->id) . '`)" class="btn btn-sm btn-danger">Hapus</a>
+                <div class="d-flex justify-content-center">
+                    <div class="dropdown no-arrow">
+                        <a class="btn btn-sm dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="true">
+                            <i class="fas fa-ellipsis-v"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a onclick="showDetail(`' . route('sale.show', $sales->id) . '`)" class="dropdown-item">Detail</a></li>
+                            <li><a href="' .  route('sale.edit', $sales->id) . '" class="dropdown-item">Perbarui</a></li>
+                            <li><a onclick="deleteData(`' . route('sale.destroy', $sales->id) . '`)" class="dropdown-item">Hapus</a></li>
+                        </ul>
+                    </div>
                 </div>
                 ';
             })
@@ -87,8 +94,6 @@ class SaleController extends Controller
 
     public function cancel()
     {
-        session('sale_id');
-
         if ($sale = Sale::find(session('sale_id'))) {
             $sale->delete();
 

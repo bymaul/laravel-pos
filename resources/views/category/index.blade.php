@@ -27,7 +27,7 @@
                             <tr>
                                 <th width="5%">No.</th>
                                 <th>Nama</th>
-                                <th width="10%">Aksi</th>
+                                <th width="10%"></th>
                             </tr>
                         </thead>
                     </table>
@@ -35,7 +35,10 @@
             </div>
         </div>
     </div>
+
     @includeIf('category.form')
+    @includeIf('components.toast')
+    @includeIf('components.modal')
 
     @push('scripts')
         <script>
@@ -44,7 +47,6 @@
             $(function() {
                 table = $('#dataTable').DataTable({
                     responsive: true,
-                    serverSide: true,
                     autoWidth: false,
                     ajax: {
                         url: "{{ route('category.data') }}",
@@ -71,9 +73,17 @@
                             success: function(data) {
                                 $('#categoryModal').modal('hide');
                                 table.ajax.reload();
+
+                                $('#toast').addClass('text-bg-success')
+                                    .removeClass('text-bg-danger');
+                                $('#toast').toast('show');
+                                $('#toast .toast-body').text('Data berhasil disimpan!');
                             },
                             error: function() {
-                                alert('Tidak dapat menyimpan data!');
+                                $('#toast').addClass('text-bg-danger')
+                                    .removeClass('text-bg-success');
+                                $('#toast').toast('show');
+                                $('#toast .toast-body').text('Tidak dapat menyimpan data!');
                                 return;
                             }
                         });
@@ -105,25 +115,40 @@
                         $('#categoryModal [name=categoryName]').val(response.name);
                     })
                     .fail((error) => {
-                        alert('Tidak dapat menampilkan data!');
+                        $('#toast').addClass('text-bg-danger')
+                            .removeClass('text-bg-success');
+                        $('#toast').toast('show');
+                        $('#toast .toast-body').text('Tidak dapat menampilkan data!');
                         return;
                     });
             }
 
             function deleteData(url) {
-                if (confirm('Apakah Anda yakin ingin menghapus data ini?')) {
+                $('#confirmModal').modal('show');
+                $('#confirmModal .modal-body').text('Apakah Anda yakin ingin menghapus data ini?');
+
+                $('#confirmDelete').click(function() {
                     $.post(url, {
                             '_method': 'delete',
                             '_token': '{{ csrf_token() }}'
                         })
                         .done((response) => {
+                            $('#confirmModal').modal('hide');
                             table.ajax.reload();
+
+                            $('#toast').addClass('text-bg-success')
+                                .removeClass('text-bg-danger');
+                            $('#toast').toast('show');
+                            $('#toast .toast-body').text('Data berhasil dihapus!');
                         })
                         .fail((error) => {
-                            alert('Tidak dapat menghapus data!');
+                            $('#toast').addClass('text-bg-danger')
+                                .removeClass('text-bg-success');
+                            $('#toast').toast('show');
+                            $('#toast .toast-body').text('Tidak dapat menghapus data!');
                             return;
                         })
-                }
+                })
             }
         </script>
     @endpush
