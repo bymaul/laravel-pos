@@ -5,7 +5,6 @@ namespace Tests\Feature;
 use App\Models\Category;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
@@ -13,20 +12,32 @@ class CategoryTest extends TestCase
 {
 
     use RefreshDatabase;
-    use WithoutMiddleware;
+    use WithFaker;
 
     /** @test */
     public function category_page_can_be_rendered_with_data(): void
     {
-        $user = User::factory()->create();
-        $this->actingAs($user);
-        $this->get('/category')->assertStatus(200);
+        $user = User::factory()->create(
+            [
+                'role' => 'admin',
+            ]
+        );
+
+        $response = $this
+            ->actingAs($user)
+            ->get('/category');
+
+        $response->assertStatus(200);
     }
 
     /** @test */
     public function category_page_can_create_data(): void
     {
-        $data = Category::create(['name' => 'CategoryTest'])->make()->toArray();
+        $data = [
+            'name' => $this->faker->name,
+        ];
+
+        Category::create($data);
 
         $this->assertDatabaseHas('categories', $data);
     }

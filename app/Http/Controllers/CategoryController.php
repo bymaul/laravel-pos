@@ -46,7 +46,7 @@ class CategoryController extends Controller
 
         return response()->json(
             'Data berhasil disimpan!',
-            200
+            201
         );
     }
 
@@ -76,7 +76,7 @@ class CategoryController extends Controller
 
         return response()->json(
             'Data berhasil dihapus!',
-            200
+            204
         );
     }
 }

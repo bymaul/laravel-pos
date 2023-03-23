@@ -7,15 +7,16 @@
             <div class="card-header py-3">
                 <div class="row text-center text-sm-start">
                     <div class="col-sm-5 col-12 mb-3 mb-md-0">
-                        <p class="text-primary m-0 fw-bold mt-2">Daftar
-                            Kategori</p>
+                        <p class="text-primary m-0 fw-bold mt-2">Daftar Kategori</p>
                     </div>
                     <div class="col-sm-7 col-12 mb-2 mb-md-0">
                         <div class="d-sm-flex justify-content-sm-end">
-                            <a onclick="addForm('{{ route('category.store') }}')"
-                                class="btn btn-primary btn-icon-split"><span class="icon text-white-50"><i
-                                        class="fas fa-plus"></i></span>
-                                <span class="text">Tambah</span></a>
+                            <a onclick="addForm('{{ route('category.store') }}')" class="btn btn-primary btn-icon-split">
+                                <span class="icon text-white-50">
+                                    <i class="fas fa-plus"></i>
+                                </span>
+                                <span class="text">Tambah</span>
+                            </a>
                         </div>
                     </div>
                 </div>
