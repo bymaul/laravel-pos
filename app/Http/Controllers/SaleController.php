@@ -17,9 +17,9 @@ class SaleController extends Controller
     {
 
         if (auth()->user()->role == 'admin') {
-            $sales = Sale::orderBy('created_at', 'desc')->get();
+            $sales = Sale::where('total_items', '!=', 0)->orderBy('created_at', 'desc')->get();
         } else {
-            $sales = Sale::where('user_id', auth()->user()->id)->orderBy('created_at', 'desc')->get();
+            $sales = Sale::where('total_items', '!=', 0)->where('user_id', auth()->user()->id)->orderBy('created_at', 'desc')->get();
         }
 
         return datatables()
@@ -45,9 +45,15 @@ class SaleController extends Controller
                             <i class="fas fa-ellipsis-v"></i>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a onclick="showDetail(`' . route('sale.show', $sales->id) . '`)" class="dropdown-item">Detail</a></li>
-                            <li><a href="' .  route('sale.edit', $sales->id) . '" class="dropdown-item">Perbarui</a></li>
-                            <li><a onclick="deleteData(`' . route('sale.destroy', $sales->id) . '`)" class="dropdown-item">Hapus</a></li>
+                            <li>
+                                <a onclick="showDetail(`' . route('sale.show', $sales->id) . '`)" class="dropdown-item">Detail</a>
+                            </li>
+                            <li>
+                                <a href="' .  route('sale.edit', $sales->id) . '" class="dropdown-item">Perbarui</a>
+                            </li>
+                            <li>
+                                <a onclick="deleteData(`' . route('sale.destroy', $sales->id) . '`)" class="dropdown-item">Hapus</a>
+                            </li>
                         </ul>
                     </div>
                 </div>
