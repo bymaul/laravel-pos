@@ -98,22 +98,6 @@ class SaleController extends Controller
         return redirect()->route('sale.index')->with('success', 'Transaksi berhasil disimpan!');
     }
 
-    public function cancel()
-    {
-        if ($sale = Sale::find(session('sale_id'))) {
-            $sale->delete();
-
-            $saleDetail = SaleDetail::where('sale_id', session('sale_id'));
-            $saleDetail->delete();
-        } else if ($saleDetail = SaleDetail::where('sale_id', session('sale_id'))) {
-            $saleDetail->delete();
-        }
-
-        session()->forget('sale_id');
-
-        return redirect()->route('dashboard');
-    }
-
     public function show($id)
     {
         $detail = SaleDetail::with('products')

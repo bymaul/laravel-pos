@@ -87,21 +87,11 @@
                                     name="change" readonly>
                                 <label for="inputChange">Kembali</label>
                             </div>
-                            <div class="row mb-1 text-center text-sm-start">
-                                <div class="col-sm-5 col-12 mb-3 mb-md-0">
-                                    <a href="{{ route('transaction.cancel') }}" class="btn btn-danger btn-icon-split">
-                                        <span class="icon text-white-50"><i class="fas fa-times"></i></span>
-                                        <span class="text text-white">Batal</span>
-                                    </a>
-                                </div>
-                                <div class="col-sm-7 col-12 mb-2 mb-md-0">
-                                    <div class="d-sm-flex justify-content-sm-end">
-                                        <button type="submit" class="btn btn-success btn-icon-split">
-                                            <span class="icon text-white-50"><i class="fas fa-save"></i></span>
-                                            <span class="text text-white">Simpan</span>
-                                        </button>
-                                    </div>
-                                </div>
+                            <div class="d-flex justify-content-end">
+                                <button type="submit" class="btn btn-success btn-icon-split">
+                                    <span class="icon text-white-50"><i class="fas fa-save"></i></span>
+                                    <span class="text text-white">Simpan</span>
+                                </button>
                             </div>
                         </form>
                     </div>
@@ -209,20 +199,20 @@
                     return;
                 }
 
-                $.post(`{{ url('/transaction') }}/${id}`, {
-                    '_token': $('[name=csrf-token]').attr('content'),
-                    '_method': 'put',
-                    'quantity': quantity
-                }).done(response => {
-                    $(this).on('change', function() {
+                $(this).on('change', function() {
+                    $.post(`{{ url('/transaction') }}/${id}`, {
+                        '_token': $('[name=csrf-token]').attr('content'),
+                        '_method': 'put',
+                        'quantity': quantity
+                    }).done(response => {
                         table.ajax.reload(() => loadForm($('#inputReceive').val()));
+                    }).fail(errors => {
+                        $('#toast').addClass('text-bg-danger')
+                            .removeClass('text-bg-success');
+                        $('#toast').toast('show');
+                        $('#toast .toast-body').text('Tidak dapat menambahkan kuantitas!');
+                        return;
                     });
-                }).fail(errors => {
-                    $('#toast').addClass('text-bg-danger')
-                        .removeClass('text-bg-success');
-                    $('#toast').toast('show');
-                    $('#toast .toast-body').text('Tidak dapat menambahkan kuantitas!');
-                    return;
                 });
             });
 

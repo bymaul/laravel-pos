@@ -32,7 +32,6 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('/transaction/new', [SaleController::class, 'create'])->name('transaction.new');
-    Route::get('/transaction/cancel', [SaleController::class, 'cancel'])->name('transaction.cancel');
     Route::post('/transaction/save', [SaleController::class, 'store'])->name('transaction.save');
 
     Route::get('/transaction/{id}/data', [SaleDetailController::class, 'data'])->name('transaction.data');
