@@ -55,9 +55,11 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
-        $products = Product::latest()->first() ?? new Product();
+        $products = Product::latest('id')->first() ?? new Product();
 
-        $request['code'] =  'PRD-' . add_zero_infront((int)$products->id + 1, 6);
+        preg_match('/PRD-0*(\d+)/', $products->code, $matches);
+
+        $request['code'] =  'PRD-' . add_zero_infront((int)$matches[1] + 1, 6);
 
         $products = Product::create([
             'category_id' => $request->productCategoryId,
