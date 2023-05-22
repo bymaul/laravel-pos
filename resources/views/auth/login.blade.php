@@ -2,9 +2,9 @@
 
 @section('login')
     <div class="container">
-        <div class="row justify-content-center">
+        <div class="row justify-content-center align-items-center" style="height: 100vh;">
             <div class="col-md-8 col-lg-5 col-xl-4">
-                <div class="card shadow-lg o-hidden border-0 my-5">
+                <div class="card shadow-lg o-hidden border-0">
                     <div class="card-body p-0">
                         <div class="p-5">
                             <div class="text-center">
@@ -29,17 +29,39 @@
                                     <label for="password">Password</label>
                                 </div>
                                 <div class="mb-3">
-                                    <div class="custom-control custom-checkbox small">
-                                        <div class="form-check"><input class="form-check-input custom-control-input"
-                                                type="checkbox" id="remember_me"><label
-                                                class="form-check-label custom-control-label" for="remember_me">Remember
-                                                Me</label></div>
+                                    <div class="d-flex justify-content-between">
+                                        <div class="custom-control custom-checkbox small">
+                                            <div class="form-check">
+                                                <input class="form-check-input custom-control-input" type="checkbox"
+                                                    id="remember_me">
+                                                <label class="form-check-label custom-control-label" for="remember_me">
+                                                    Remember Me
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <a onclick="forgotPassword()" class="small" href="#">Forgot Password?</a>
+                                        </div>
                                     </div>
-                                </div><button class="btn btn-primary d-block btn-user w-100" type="submit">Login</button>
+                                </div>
+                                <button class="btn btn-primary d-block btn-user w-100" type="submit">Login</button>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    @includeIf('components.toast')
+
+    <script src="{{ asset('assets/bootstrap/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('assets/js/jquery-3.6.3.min.js') }}"></script>
+    <script>
+        function forgotPassword() {
+            $('#toast').addClass('text-bg-success')
+                .removeClass('text-bg-danger');
+            $('#toast').toast('show');
+            $('#toast .toast-body').text('Silahkan hubungi admin untuk mereset password!');
+        }
+    </script>
 @endsection

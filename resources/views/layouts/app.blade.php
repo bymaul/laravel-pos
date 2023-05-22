@@ -30,7 +30,7 @@
                                 <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link"
                                         aria-expanded="false" data-bs-toggle="dropdown" href="#"><span
                                             class="d-none d-lg-inline me-2 text-gray-600 small">{{ Auth::user()->name }}</span><img
-                                            class="border rounded-circle img-profile"
+                                            class="border rounded-circle img-profile" style="object-fit: cover"
                                             src="{{ auth()->user()->avatar ? asset(auth()->user()->avatar) : asset('assets/img/default.jpg') }}"></a>
                                     <div class="dropdown-menu shadow dropdown-menu-end animated--grow-in">
                                         <a class="dropdown-item" href="{{ route('profile.edit') }}">

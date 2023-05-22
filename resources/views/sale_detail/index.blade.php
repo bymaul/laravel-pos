@@ -292,6 +292,17 @@
                         return;
                     })
             }
+
+            $('.saleForm').on('submit', function(e) {
+                if (Number($('#inputReceive').val()) < Number($('#total_price').val())) {
+                    $('#toast').addClass('text-bg-danger')
+                        .removeClass('text-bg-success');
+                    $('#toast').toast('show');
+                    $('#toast .toast-body').text('Tidak dapat menyimpan data transaksi!');
+
+                    e.preventDefault();
+                }
+            })
         </script>
     @endpush
 </x-app-layout>

@@ -25,7 +25,7 @@
 
                         <img class="rounded-circle mb-3 mt-4"
                             src="{{ auth()->user()->avatar ? asset(auth()->user()->avatar) : asset('assets/img/default.jpg') }}"
-                            width="160" height="160">
+                            width="160" height="160" style="object-fit:cover">
                         <div class="mb-3">
                             <form method="POST" action="{{ route('profile.store') }}" enctype="multipart/form-data"
                                 id="avatarForm">
