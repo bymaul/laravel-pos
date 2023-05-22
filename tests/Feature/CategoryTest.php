@@ -33,13 +33,9 @@ class CategoryTest extends TestCase
     /** @test */
     public function category_page_can_create_data(): void
     {
-        $data = [
-            'name' => $this->faker->name,
-        ];
+        Category::create(['name' => 'CategoryTest']);
 
-        Category::create($data);
-
-        $this->assertDatabaseHas('categories', $data);
+        $this->assertDatabaseHas('categories', ['name' => 'CategoryTest']);
     }
 
     /** @test */
