@@ -11,11 +11,12 @@
                 <div class="modal-body">
                     <div class="mb-3">
                         <label for="startDate">Tanggal Awal</label>
-                        <input id="startDate">
+                        <input type="date" class="form-control" id="startDate" value="{{ $startDate }}">
                     </div>
                     <div class="mb-3">
                         <label for="endDate">Tanggal Akhir</label>
-                        <input id="endDate">
+                        <input type="date" class="form-control" id="endDate" value="{{ $endDate }}">
+
                     </div>
                 </div>
                 <div class="modal-footer">

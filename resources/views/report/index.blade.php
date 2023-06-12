@@ -1,11 +1,6 @@
 @section('title', 'Laporan')
 
 <x-app-layout>
-
-    @push('css')
-        <link href="https://unpkg.com/gijgo@1.9.14/css/gijgo.min.css" rel="stylesheet" type="text/css" />
-    @endpush
-
     <div class="container-fluid">
         <h3 class="text-dark mb-4">Laporan</h3>
         <div class="card shadow">
@@ -53,7 +48,6 @@
     @includeIf('report.form')
 
     @push('scripts')
-        <script src="https://unpkg.com/gijgo@1.9.14/js/gijgo.min.js" type="text/javascript"></script>
         <script>
             let table;
 
@@ -80,18 +74,6 @@
                     bSort: false,
                     bPaginate: false,
                 });
-
-                $('#startDate').datepicker({
-                    value: '{{ $startDate }}',
-                    format: 'yyyy-mm-dd',
-                    uiLibrary: 'bootstrap5'
-                })
-
-                $('#endDate').datepicker({
-                    value: '{{ $endDate }}',
-                    format: 'yyyy-mm-dd',
-                    uiLibrary: 'bootstrap5'
-                })
             });
 
             $('#periodModal').on('submit', function(e) {

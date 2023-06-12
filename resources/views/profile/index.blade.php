@@ -10,25 +10,21 @@
                         @if (session('success'))
                             <div class="alert alert-success alert-dismissible fade show" role="alert">
                                 <strong>{{ session('success') }}</strong>
-                                <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                    aria-label="Close"></button>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                             </div>
                         @endif
 
                         @error('avatar')
                             <div class="alert alert-danger alert-dismissible fade show" role="alert">
                                 <strong>{{ $message }}</strong>
-                                <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                    aria-label="Close"></button>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                             </div>
                         @enderror
 
-                        <img class="rounded-circle mb-3 mt-4"
-                            src="{{ auth()->user()->avatar ? asset(auth()->user()->avatar) : asset('assets/img/default.jpg') }}"
-                            width="160" height="160" style="object-fit:cover">
+                        <img class="rounded-circle mb-3 mt-4" src="{{ auth()->user()->avatar ? asset(auth()->user()->avatar) : asset('assets/img/default.jpg') }}" width="160"
+                            height="160" style="object-fit:cover">
                         <div class="mb-3">
-                            <form method="POST" action="{{ route('profile.store') }}" enctype="multipart/form-data"
-                                id="avatarForm">
+                            <form method="POST" action="{{ route('profile.store') }}" enctype="multipart/form-data" id="avatarForm">
                                 @csrf
                                 <label for="avatar">
                                     <a class="btn btn-primary btn-sm btn-icon-split">
@@ -69,26 +65,19 @@
                                     @if (session('status') === 'profile-updated')
                                         <div class="alert alert-success alert-dismissible fade show" role="alert">
                                             <strong>Profil berhasil diperbarui!</strong>
-                                            <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                                aria-label="Close"></button>
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                         </div>
                                     @endif
                                     <div class="row">
                                         <div class="col-sm col-12">
-                                            <div class="mb-3"><label class="form-label"
-                                                    for="name"><strong>Nama</strong></label><input
-                                                    class="form-control" type="text" id="name"
-                                                    placeholder="Nama Pengguna" name="name"
-                                                    value="{{ old('name', $user->name) }}">
+                                            <div class="mb-3"><label class="form-label" for="name"><strong>Nama</strong></label><input class="form-control" type="text"
+                                                    id="name" placeholder="Nama Pengguna" name="name" value="{{ old('name', $user->name) }}">
                                                 <x-input-error class="mt-2" :messages="$errors->get('name')" />
                                             </div>
                                         </div>
                                         <div class="col-sm col-12">
-                                            <div class="mb-3"><label class="form-label"
-                                                    for="email"><strong>Email</strong></label><input
-                                                    class="form-control" type="email" id="email"
-                                                    placeholder="Email Pengguna" name="email"
-                                                    value="{{ old('name', $user->email) }}">
+                                            <div class="mb-3"><label class="form-label" for="email"><strong>Email</strong></label><input class="form-control" type="email"
+                                                    id="email" placeholder="Email Pengguna" name="email" value="{{ old('name', $user->email) }}">
                                                 <x-input-error class="mt-2" :messages="$errors->get('email')" />
                                             </div>
                                         </div>
@@ -113,15 +102,13 @@
                                     @if (session('status') === 'password-updated')
                                         <div class="alert alert-success alert-dismissible fade show" role="alert">
                                             <strong>Password berhasil diperbarui!</strong>
-                                            <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                                aria-label="Close"></button>
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                         </div>
                                     @endif
                                     <div class="mb-3">
                                         <label class="form-label" for="current_password"><strong>Password
                                                 Sekarang</strong></label>
-                                        <input class="form-control" type="password" id="current_password"
-                                            placeholder="Password" name="current_password">
+                                        <input class="form-control" type="password" id="current_password" placeholder="Password" name="current_password">
                                         <x-input-error :messages="$errors->updatePassword->get('current_password')" class="mt-2" />
                                     </div>
                                     <div class="row">
@@ -129,17 +116,14 @@
                                             <div class="mb-3">
                                                 <label class="form-label" for="password"><strong>Password
                                                         Baru</strong></label>
-                                                <input class="form-control" type="password" id="password"
-                                                    placeholder="Password Baru" name="password">
+                                                <input class="form-control" type="password" id="password" placeholder="Password Baru" name="password">
                                                 <x-input-error :messages="$errors->updatePassword->get('password')" class="mt-2" />
                                             </div>
                                         </div>
                                         <div class="col-sm col-12">
-                                            <div class="mb-3"><label class="form-label"
-                                                    for="password_confirmation"><strong>Konfirmasi
+                                            <div class="mb-3"><label class="form-label" for="password_confirmation"><strong>Konfirmasi
                                                         Password</strong></label>
-                                                <input class="form-control" type="password"
-                                                    id="password_confirmation" placeholder="Konfirmasi Password"
+                                                <input class="form-control" type="password" id="password_confirmation" placeholder="Konfirmasi Password"
                                                     name="password_confirmation">
                                                 <x-input-error :messages="$errors->updatePassword->get('password_confirmation')" class="mt-2" />
                                             </div>

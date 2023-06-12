@@ -10,8 +10,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-floating">
-                        <input type="text" class="form-control" name="categoryName" id="categoryName"
-                            placeholder="Nama Kategori" aria-describedby="categoryHelp" required>
+                        <input type="text" class="form-control" name="categoryName" id="categoryName" placeholder="Nama Kategori" aria-describedby="categoryHelp" required>
                         <label for="categoryName">Nama Kategori</label>
                     </div>
                 </div>
