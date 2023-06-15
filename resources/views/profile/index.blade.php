@@ -72,13 +72,13 @@
                                         <div class="col-sm col-12">
                                             <div class="mb-3"><label class="form-label" for="name"><strong>Nama</strong></label><input class="form-control" type="text"
                                                     id="name" placeholder="Nama Pengguna" name="name" value="{{ old('name', $user->name) }}">
-                                                <x-input-error class="mt-2" :messages="$errors->get('name')" />
+                                                <x-profile.input-error class="mt-2" :messages="$errors->get('name')" />
                                             </div>
                                         </div>
                                         <div class="col-sm col-12">
                                             <div class="mb-3"><label class="form-label" for="email"><strong>Email</strong></label><input class="form-control" type="email"
                                                     id="email" placeholder="Email Pengguna" name="email" value="{{ old('name', $user->email) }}">
-                                                <x-input-error class="mt-2" :messages="$errors->get('email')" />
+                                                <x-profile.input-error class="mt-2" :messages="$errors->get('email')" />
                                             </div>
                                         </div>
                                     </div>
@@ -109,7 +109,7 @@
                                         <label class="form-label" for="current_password"><strong>Password
                                                 Sekarang</strong></label>
                                         <input class="form-control" type="password" id="current_password" placeholder="Password" name="current_password">
-                                        <x-input-error :messages="$errors->updatePassword->get('current_password')" class="mt-2" />
+                                        <x-profile.input-error :messages="$errors->updatePassword->get('current_password')" class="mt-2" />
                                     </div>
                                     <div class="row">
                                         <div class="col-sm col-12">
@@ -117,7 +117,7 @@
                                                 <label class="form-label" for="password"><strong>Password
                                                         Baru</strong></label>
                                                 <input class="form-control" type="password" id="password" placeholder="Password Baru" name="password">
-                                                <x-input-error :messages="$errors->updatePassword->get('password')" class="mt-2" />
+                                                <x-profile.input-error :messages="$errors->updatePassword->get('password')" class="mt-2" />
                                             </div>
                                         </div>
                                         <div class="col-sm col-12">
@@ -125,7 +125,7 @@
                                                         Password</strong></label>
                                                 <input class="form-control" type="password" id="password_confirmation" placeholder="Konfirmasi Password"
                                                     name="password_confirmation">
-                                                <x-input-error :messages="$errors->updatePassword->get('password_confirmation')" class="mt-2" />
+                                                <x-profile.input-error :messages="$errors->updatePassword->get('password_confirmation')" class="mt-2" />
                                             </div>
                                         </div>
                                     </div>

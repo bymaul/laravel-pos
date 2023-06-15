@@ -8,49 +8,13 @@
     <title>Nota</title>
 
     <?php
-    $style = '
-                                                                                                                                                                                                                                                                        <style>
-                                                                                                                                                                                                                                                                            * {
-                                                                                                                                                                                                                                                                                font-family: "consolas", sans-serif;
-                                                                                                                                                                                                                                                                            }
-                                                                                                                                                                                                                                                                            p {
-                                                                                                                                                                                                                                                                                display: block;
-                                                                                                                                                                                                                                                                                margin: 3px;
-                                                                                                                                                                                                                                                                                font-size: 10pt;
-                                                                                                                                                                                                                                                                            }
-                                                                                                                                                                                                                                                                            p .address {
-                                                                                                                                                                                                                                                                                font-size: 5pt;
-                                                                                                                                                                                                                                                                            }
-                                                                                                                                                                                                                                                                            table td {
-                                                                                                                                                                                                                                                                                font-size: 9pt;
-                                                                                                                                                                                                                                                                            }
-                                                                                                                                                                                                                                                                            .text-center {
-                                                                                                                                                                                                                                                                                text-align: center;
-                                                                                                                                                                                                                                                                            }
-                                                                                                                                                                                                                                                                            .text-right {
-                                                                                                                                                                                                                                                                                text-align: right;
-                                                                                                                                                                                                                                                                            }
-    
-                                                                                                                                                                                                                                                                            @media print {
-                                                                                                                                                                                                                                                                                @page {
-                                                                                                                                                                                                                                                                                    margin: 0;
-                                                                                                                                                                                                                                                                                    size: 75mm
-                                                                                                                                                                                                                                                                        ';
+    $style = '<style>p{display:block;margin:3px;font-size:10pt}p .address{font-size:5pt}table td{font-size:9pt}.text-center{text-align:center}.text-right{text-align:right}@media print{@page{margin:0;size:75mm}}';
     ?>
     <?php
     $style .= !empty($_COOKIE['innerHeight']) ? $_COOKIE['innerHeight'] . 'mm; }' : '}';
     ?>
     <?php
-    $style .= '
-                                                                                                                                                                                                                                                                                html, body {
-                                                                                                                                                                                                                                                                                    width: 70mm;
-                                                                                                                                                                                                                                                                                }
-                                                                                                                                                                                                                                                                                .btn-print {
-                                                                                                                                                                                                                                                                                    display: none;
-                                                                                                                                                                                                                                                                                }
-                                                                                                                                                                                                                                                                            }
-                                                                                                                                                                                                                                                                        </style>
-                                                                                                                                                                                                                                                                        ';
+    $style .= 'body,html{width:70mm}.btn-print{display:none}</style>';
     ?>
 
     {!! $style !!}

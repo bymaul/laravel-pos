@@ -65,7 +65,9 @@
             </div>
         </div>
     </div>
-    @includeIf('product.form')
+
+    <x-product.form :categories='$categories' />
+
     @includeIf('components.toast')
     @includeIf('components.modal')
 

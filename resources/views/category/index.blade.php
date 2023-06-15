@@ -37,7 +37,8 @@
         </div>
     </div>
 
-    @includeIf('category.form')
+    <x-category.form />
+
     @includeIf('components.toast')
     @includeIf('components.modal')
 

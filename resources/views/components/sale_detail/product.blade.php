@@ -1,3 +1,5 @@
+@props(['products'])
+
 <div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -25,8 +27,7 @@
                                     <td>{{ $item->name }}</td>
                                     <td>Rp{{ indonesia_format($item->price) }}</td>
                                     <td width="5%">
-                                        <a class="btn btn-sm btn-primary btn-icon-split"
-                                            onclick="chooseProduct('{{ $item->id }}', '{{ $item->code }}')">
+                                        <a class="btn btn-sm btn-primary btn-icon-split" onclick="chooseProduct('{{ $item->id }}', '{{ $item->code }}')">
                                             <span class="icon text-white-50"><i class="fas fa-check"></i></span>
                                             <span class="text">Pilih</span>
                                         </a>

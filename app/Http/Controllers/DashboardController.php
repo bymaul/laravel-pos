@@ -36,7 +36,6 @@ class DashboardController extends Controller
             $startDate = date('Y-m-d', strtotime('+1 day', strtotime($startDate)));
         }
 
-        // reset date from loop
         $startDate = date('Y-m-01');
 
         return view('dashboard', compact(

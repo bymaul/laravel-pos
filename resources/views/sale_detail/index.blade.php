@@ -29,8 +29,7 @@
                                         <input type="hidden" name="saleId" id="saleId" value="{{ $sale_id }}">
                                         <input type="hidden" name="productId" id="productId">
                                         <input type="hidden" name="productCode" id="productCode">
-                                        <a onclick="showProduct()" class="btn btn-primary btn-icon-split"><span
-                                                class="icon text-white-50"><i class="fas fa-plus"></i></span>
+                                        <a onclick="showProduct()" class="btn btn-primary btn-icon-split"><span class="icon text-white-50"><i class="fas fa-plus"></i></span>
                                             <span class="text">Tambah</span></a>
                                     </form>
                                 </div>
@@ -78,13 +77,11 @@
                                 <label for="inputPay">Bayar</label>
                             </div>
                             <div class="form-floating mb-3">
-                                <input type="number" class="form-control" id="inputReceive" placeholder="Diterima"
-                                    name="received" value="0">
+                                <input type="number" class="form-control" id="inputReceive" placeholder="Diterima" name="received" value="0">
                                 <label for="inputReceive">Diterima</label>
                             </div>
                             <div class="form-floating mb-4">
-                                <input type="text" class="form-control" id="inputChange" placeholder="Kembali"
-                                    name="change" readonly>
+                                <input type="text" class="form-control" id="inputChange" placeholder="Kembali" name="change" readonly>
                                 <label for="inputChange">Kembali</label>
                             </div>
                             <div class="d-flex justify-content-end">
@@ -99,7 +96,7 @@
             </div>
         </div>
     </div>
-    @includeIf('sale_detail.product')
+    <x-sale_detail.product :products='$products' />
     @includeIf('components.toast')
     @includeIf('components.modal')
 

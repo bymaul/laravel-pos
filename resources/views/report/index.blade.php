@@ -45,7 +45,7 @@
             </div>
         </div>
     </div>
-    @includeIf('report.form')
+    <x-report.form :startDate="$startDate" :endDate="$endDate" />
 
     @push('scripts')
         <script>

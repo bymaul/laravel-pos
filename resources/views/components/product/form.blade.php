@@ -1,3 +1,5 @@
+@props(['categories'])
+
 <div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <form action="" method="POST">
@@ -10,8 +12,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="mb-3 form-floating">
-                        <input type="text" class="form-control" name="productName" id="productName"
-                            placeholder="Nama Produk" aria-describedby="productNameHelp" required>
+                        <input type="text" class="form-control" name="productName" id="productName" placeholder="Nama Produk" aria-describedby="productNameHelp" required>
                         <label for="productName">Nama Produk</label>
                     </div>
                     <div class="mb-3 form-floating">
@@ -25,8 +26,7 @@
                     </div>
                     <div class="input-group">
                         <span class="input-group-text">Rp</span>
-                        <input type="number" class="form-control" name="productPrice" id="productPrice"
-                            placeholder="Harga Produk" aria-describedby="productPriceHelp" required>
+                        <input type="number" class="form-control" name="productPrice" id="productPrice" placeholder="Harga Produk" aria-describedby="productPriceHelp" required>
                     </div>
                 </div>
                 <div class="modal-footer">

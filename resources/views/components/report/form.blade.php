@@ -1,3 +1,5 @@
+@props(['startDate', 'endDate'])
+
 <div class="modal fade" id="periodModal" tabindex="-1" aria-labelledby="periodModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-sm">
         <form action="" method="POST">
