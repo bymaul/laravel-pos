@@ -31,7 +31,8 @@
                                 </span>
                                 <span class="text">Tambah</span>
                             </a>
-                            <a onclick="deleteSelected('{{ route('product.delete-selected') }}')" class="btn btn-danger btn-icon-split ms-2">
+                            <a onclick="deleteSelected('{{ route('product.delete-selected') }}')"
+                                class="btn btn-danger btn-icon-split ms-2">
                                 <span class="icon text-white-50">
                                     <i class="fas fa-trash"></i>
                                 </span>

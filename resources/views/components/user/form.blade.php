@@ -10,19 +10,23 @@
                 </div>
                 <div class="modal-body">
                     <div class="mb-3 form-floating">
-                        <input type="text" class="form-control" name="name" id="userName" placeholder="Nama" aria-describedby="nameHelp" required>
+                        <input type="text" class="form-control" name="name" id="userName" placeholder="Nama"
+                            aria-describedby="nameHelp" required>
                         <label for="userName">Nama</label>
                     </div>
                     <div class="mb-3 form-floating">
-                        <input type="email" class="form-control" name="email" id="userEmail" placeholder="Email" aria-describedby="emailHelp" required>
+                        <input type="email" class="form-control" name="email" id="userEmail" placeholder="Email"
+                            aria-describedby="emailHelp" required>
                         <label for="userEmail">Email</label>
                     </div>
                     <div class="mb-3 form-floating">
-                        <input type="password" class="form-control" name="password" id="userPassword" placeholder="Password" aria-describedby="passwordHelp">
+                        <input type="password" class="form-control" name="password" id="userPassword"
+                            placeholder="Password" aria-describedby="passwordHelp">
                         <label for="userPassword">Password</label>
                     </div>
                     <div class="form-floating">
-                        <input type="password" class="form-control" name="password_confirmation" id="userConfrimPassword" placeholder="Konfirmasi Password"
+                        <input type="password" class="form-control" name="password_confirmation"
+                            id="userConfrimPassword" placeholder="Konfirmasi Password"
                             aria-describedby="confirmPasswordHelp">
                         <label for="userConfrimPassword">Konfirmasi Password</label>
                     </div>

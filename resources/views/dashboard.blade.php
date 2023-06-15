@@ -5,7 +5,8 @@
         <div class="d-sm-flex justify-content-between align-items-center mb-4">
             <h3 class="text-dark mb-0">Dashboard</h3>
             @if (Auth()->user()->role == 'admin')
-                <a class="btn btn-primary btn-sm d-none d-sm-inline-block btn-icon-split" role="button" href="{{ route('report.index') }}">
+                <a class="btn btn-primary btn-sm d-none d-sm-inline-block btn-icon-split" role="button"
+                    href="{{ route('report.index') }}">
                     <span class="icon text-white-50">
                         <i class="fas fa-download fa-sm text-white-50"></i>
                     </span>
@@ -29,7 +30,8 @@
                                 Pendapatan {{ indonesia_date($startDate) }} s/d {{ indonesia_date($endDate) }}
                             </h6>
                             <div class="dropdown no-arrow">
-                                <button class="btn btn-link btn-sm dropdown-toggle" aria-expanded="false" data-bs-toggle="dropdown" type="button">
+                                <button class="btn btn-link btn-sm dropdown-toggle" aria-expanded="false"
+                                    data-bs-toggle="dropdown" type="button">
                                     <i class="fas fa-ellipsis-v text-gray-400"></i>
                                 </button>
                                 <div class="dropdown-menu shadow dropdown-menu-end animated--fade-in">

@@ -12,7 +12,8 @@
                     </div>
                     <div class="col-sm-7 col-12 mb-2 mb-md-0">
                         <div class="d-sm-flex justify-content-sm-end">
-                            <a onclick="addForm('{{ route('user.store') }}')" class="btn btn-primary btn-icon-split"><span class="icon text-white-50"><i
+                            <a onclick="addForm('{{ route('user.store') }}')"
+                                class="btn btn-primary btn-icon-split"><span class="icon text-white-50"><i
                                         class="fas fa-plus"></i></span>
                                 <span class="text">Tambah</span></a>
                         </div>
