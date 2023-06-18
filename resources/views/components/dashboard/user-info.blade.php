@@ -1,4 +1,4 @@
-@props(['todayRevenue', 'monthRevenue', 'categories', 'products'])
+@props(['todaySales', 'monthSales', 'categories', 'products'])
 
 <div class="col-md-6 col-xl-3 mb-4">
     <div class="card shadow border-start-success py-2">
