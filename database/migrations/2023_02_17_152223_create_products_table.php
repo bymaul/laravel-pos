@@ -16,8 +16,8 @@ return new class extends Migration
             $table->foreignId('category_id')
                 ->references('id')
                 ->on('categories')
-                ->onDelete('restrict')
-                ->onUpdate('restrict');
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
             $table->string('code')->unique();
             $table->string('name')->unique();
             $table->integer('price');

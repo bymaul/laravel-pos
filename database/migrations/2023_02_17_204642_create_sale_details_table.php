@@ -13,8 +13,14 @@ return new class extends Migration
     {
         Schema::create('sale_details', function (Blueprint $table) {
             $table->id();
-            $table->integer('sale_id');
-            $table->integer('product_id');
+            $table->foreignId('sale_id')
+                ->references('id')
+                ->on('sales')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+            $table->foreignId('product_id')
+                ->references('id')
+                ->on('products');
             $table->integer('price');
             $table->integer('quantity');
             $table->integer('subtotal');
