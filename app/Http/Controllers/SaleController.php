@@ -134,9 +134,6 @@ class SaleController extends Controller
         $sale = Sale::find($id);
         $sale->delete();
 
-        $saleDetail = SaleDetail::where('sale_id', $id);
-        $saleDetail->delete();
-
         (session('sale_id') == $id) ? session()->forget('sale_id') : null;
 
         return response()->json(
