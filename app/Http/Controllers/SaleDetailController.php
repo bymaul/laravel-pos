@@ -21,9 +21,7 @@ class SaleDetailController extends Controller
 
     public function data($id)
     {
-        $details = SaleDetail::with('products')
-            ->where('sale_id', $id)
-            ->get();
+        $details = SaleDetail::where('sale_id', $id)->get();
 
         $data = array();
         $total = 0;
@@ -31,14 +29,12 @@ class SaleDetailController extends Controller
 
         foreach ($details as $item) {
             $row = array();
-            $row['code'] = '<span class="badge bg-success">' . $item->products['code'] . '</span>';
-            $row['name'] = $item->products['name'];
+            $row['code'] = '<span class="badge bg-success">' . $item->products->code . '</span>';
+            $row['name'] = $item->products->name;
             $row['price'] = 'Rp' . indonesia_format($item->price);
             $row['quantity'] = '<input type="number" class="form-control form-control-sm quantity" data-id="' . $item->id . '" value="' . $item->quantity . '">';
             $row['subtotal'] = 'Rp' . indonesia_format($item->subtotal);
-            $row['action'] = '<a onclick="deleteData(`' . route('transaction.destroy', $item->id) . '`)" class="btn btn-sm btn-danger btn-icon-split"><span
-                                        class="icon text-white-50"><i class="fas fa-trash"></i></span>
-                                    <span class="text">Hapus</span></a>';
+            $row['action'] = '<a onclick="deleteData(`' . route('transaction.destroy', $item->id) . '`)" class="btn btn-sm btn-danger btn-icon-split"><span class="icon text-white-50"><i class="fas fa-trash"></i></span><span class="text">Hapus</span></a>';
             $data[] = $row;
 
             $total += $item->price * $item->quantity;
@@ -46,14 +42,12 @@ class SaleDetailController extends Controller
         }
 
         $data[] = [
-            'code' => '
-                <div class="total d-none">' . $total . '</div>
-                <div class="total_items d-none">' . $total_items . '</div>',
+            'code' => '<div class="total d-none">' . $total . '</div><div class="total_items d-none">' . $total_items . '</div>',
             'name' => '',
-            'price'  => '',
-            'quantity'      => '',
-            'subtotal'    => '',
-            'action'        => '',
+            'price' => '',
+            'quantity' => '',
+            'subtotal' => '',
+            'action' => '',
         ];
 
         return datatables()

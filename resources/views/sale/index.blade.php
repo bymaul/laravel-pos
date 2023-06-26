@@ -163,12 +163,12 @@
                 const top = (height - h) / 2 / systemZoom + dualScreenTop
                 const newWindow = window.open(url, title,
                     `
-            scrollbars=yes,
-            width  = ${w / systemZoom},
-            height = ${h / systemZoom},
-            top    = ${top},
-            left   = ${left}
-        `
+                    scrollbars=yes,
+                    width  = ${w / systemZoom},
+                    height = ${h / systemZoom},
+                    top    = ${top},
+                    left   = ${left}
+                    `
                 );
 
                 if (window.focus) newWindow.focus();

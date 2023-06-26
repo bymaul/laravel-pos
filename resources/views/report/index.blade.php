@@ -81,8 +81,7 @@
                     let startDate = $('#startDate').val();
                     let endDate = $('#endDate').val();
                     let url = "{{ route('report.data', ['startDate', 'endDate']) }}";
-                    url = url.replace('startDate', startDate);
-                    url = url.replace('endDate', endDate);
+                    url = url.replace('startDate', startDate).replace('endDate', endDate);
 
                     if (startDate && endDate) {
                         table.ajax.url(url).load();
@@ -100,8 +99,7 @@
                 let startDate = $('#startDate').val();
                 let endDate = $('#endDate').val();
                 let url = "{{ route('report.export', ['startDate', 'endDate']) }}";
-                url = url.replace('startDate', startDate);
-                url = url.replace('endDate', endDate);
+                url = url.replace('startDate', startDate).replace('endDate', endDate);
 
                 window.open(url, '_blank');
 
