@@ -76,9 +76,7 @@ class ProductController extends Controller
 
     public function show($id)
     {
-        $products = Product::findOrFail($id);
-
-        return response()->json($products);
+        return response()->json(Product::findOrFail($id));
     }
 
     public function update(Request $request, $id)
@@ -97,8 +95,7 @@ class ProductController extends Controller
 
     public function destroy($id)
     {
-        $categories = Product::findOrFail($id);
-        $categories->delete();
+        Product::findOrFail($id)->delete();
 
         return response()->json(
             'Data berhasil dihapus!',

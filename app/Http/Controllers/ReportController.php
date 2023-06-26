@@ -8,13 +8,13 @@ class ReportController extends Controller
 {
     public function index()
     {
-        $startDate = date('Y-m-d', mktime(0, 0, 0, date('m'), 1, date('Y')));
+        $startDate = date('Y-m-01');
         $endDate = date('Y-m-d');
 
         return view('report.index', compact('startDate', 'endDate'));
     }
 
-    public function getData($startDate, $endDate)
+    public function data($startDate, $endDate)
     {
         $no = 1;
         $total_sales = 0;
@@ -51,13 +51,6 @@ class ReportController extends Controller
             'total_sales' => '',
             'revenue' => indonesia_format($total_revenue),
         ];
-
-        return $data;
-    }
-
-    public function data($startDate, $endDate)
-    {
-        $data = $this->getData($startDate, $endDate);
 
         return datatables()
             ->of($data)

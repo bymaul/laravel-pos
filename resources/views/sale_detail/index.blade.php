@@ -101,7 +101,6 @@
     </div>
     <x-sale_detail.product :products='$products' />
     @includeIf('components.toast')
-    @includeIf('components.modal')
 
     @push('scripts')
         <script>
@@ -251,27 +250,22 @@
             }
 
             function deleteData(url) {
-                $('#confirmModal').modal('show');
-                $('#confirmModal .modal-body').text('Yakin ingin menghapus produk terpilih?');
+                $.post(url, {
+                        '_token': $('[name=csrf-token]').attr('content'),
+                        '_method': 'delete'
+                    })
+                    .done((response) => {
+                        $('#confirmModal').modal('hide');
 
-                $('#confirmDelete').click(function() {
-                    $.post(url, {
-                            '_token': $('[name=csrf-token]').attr('content'),
-                            '_method': 'delete'
-                        })
-                        .done((response) => {
-                            $('#confirmModal').modal('hide');
-
-                            table.ajax.reload(() => loadForm($('#inputReceive').val()));
-                        })
-                        .fail((errors) => {
-                            $('#toast').addClass('text-bg-danger')
-                                .removeClass('text-bg-success');
-                            $('#toast').toast('show');
-                            $('#toast .toast-body').text('Tidak dapat menghapus data!');
-                            return;
-                        });
-                })
+                        table.ajax.reload(() => loadForm($('#inputReceive').val()));
+                    })
+                    .fail((errors) => {
+                        $('#toast').addClass('text-bg-danger')
+                            .removeClass('text-bg-success');
+                        $('#toast').toast('show');
+                        $('#toast .toast-body').text('Tidak dapat menghapus data!');
+                        return;
+                    });
             }
 
             function loadForm(received = 0) {

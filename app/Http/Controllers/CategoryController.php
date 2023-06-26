@@ -56,9 +56,7 @@ class CategoryController extends Controller
 
     public function show($id)
     {
-        $categories = Category::findOrFail($id);
-
-        return response()->json($categories);
+        return response()->json(Category::findOrFail($id));
     }
 
     public function update(Request $request, $id)
@@ -75,8 +73,7 @@ class CategoryController extends Controller
 
     public function destroy($id)
     {
-        $categories = Category::findOrFail($id);
-        $categories->delete();
+        Category::findOrFail($id)->delete();
 
         return response()->json(
             'Data berhasil dihapus!',

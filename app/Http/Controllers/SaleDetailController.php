@@ -86,8 +86,7 @@ class SaleDetailController extends Controller
 
     public function destroy($id)
     {
-        $detail = SaleDetail::find($id);
-        $detail->delete();
+        SaleDetail::find($id)->delete();
 
         return response(null, 204);
     }

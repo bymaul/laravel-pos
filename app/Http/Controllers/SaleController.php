@@ -16,11 +16,9 @@ class SaleController extends Controller
     public function data()
     {
 
-        if (auth()->user()->role == 'admin') {
+        auth()->user()->isNotAdmin ?
+            $sales = Sale::where('total_items', '!=', 0)->where('user_id', auth()->user()->id)->orderBy('created_at', 'desc')->get() :
             $sales = Sale::where('total_items', '!=', 0)->orderBy('created_at', 'desc')->get();
-        } else {
-            $sales = Sale::where('total_items', '!=', 0)->where('user_id', auth()->user()->id)->orderBy('created_at', 'desc')->get();
-        }
 
         return datatables()
             ->of($sales)
