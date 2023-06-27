@@ -25,19 +25,20 @@
                     </div>
                     <div class="col-sm-7 col-12 mb-2 mb-md-0">
                         <div class="d-sm-flex justify-content-sm-end">
-                            <a onclick="addForm('{{ route('product.store') }}')" class="btn btn-primary btn-icon-split">
+                            <button onclick="addForm('{{ route('product.store') }}')"
+                                class="btn btn-primary btn-icon-split">
                                 <span class="icon text-white-50">
                                     <i class="fas fa-plus"></i>
                                 </span>
                                 <span class="text">Tambah</span>
-                            </a>
-                            <a onclick="deleteSelected('{{ route('product.delete-selected') }}')"
+                            </button>
+                            <button onclick="deleteSelected('{{ route('product.delete-selected') }}')"
                                 class="btn btn-danger btn-icon-split ms-2">
                                 <span class="icon text-white-50">
                                     <i class="fas fa-trash"></i>
                                 </span>
                                 <span class="text">Hapus</span>
-                            </a>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -78,6 +79,7 @@
 
             $(function() {
                 table = $('#dataTable').DataTable({
+                    serverSide: true,
                     responsive: true,
                     autoWidth: false,
                     ajax: {

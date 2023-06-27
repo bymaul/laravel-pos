@@ -59,6 +59,7 @@
 
             $(function() {
                 table = $('#dataTable').DataTable({
+                    serverSide: true,
                     responsive: true,
                     autoWidth: false,
                     ajax: {

@@ -53,6 +53,8 @@
 
             $(function() {
                 table = $('#dataTable').DataTable({
+                    serverSide: true,
+                    responsive: true,
                     autoWidth: false,
                     ajax: {
                         url: "{{ route('report.data', [$startDate, $endDate]) }}",
