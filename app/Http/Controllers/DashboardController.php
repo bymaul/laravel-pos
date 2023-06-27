@@ -23,6 +23,7 @@ class DashboardController extends Controller
         $labelChart = [];
         $dataChart = [];
         $bestSellers = SaleDetail::select("product_id", DB::raw('SUM(quantity) as quantity'))
+            ->with('products')
             ->limit(6)
             ->groupBy("product_id")
             ->orderByDesc("quantity")

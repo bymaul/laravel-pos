@@ -21,7 +21,7 @@ class SaleDetailController extends Controller
 
     public function data($id)
     {
-        $details = SaleDetail::where('sale_id', $id)->get();
+        $details = SaleDetail::where('sale_id', $id)->with('products')->get();
 
         $data = array();
         $total = 0;

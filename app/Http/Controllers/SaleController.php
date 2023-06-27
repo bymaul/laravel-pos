@@ -17,8 +17,8 @@ class SaleController extends Controller
     {
 
         auth()->user()->isNotAdmin ?
-            $sales = Sale::where('total_items', '!=', 0)->where('user_id', auth()->user()->id)->orderBy('created_at', 'desc')->get() :
-            $sales = Sale::where('total_items', '!=', 0)->orderBy('created_at', 'desc')->get();
+            $sales = Sale::where('total_items', '!=', 0)->where('user_id', auth()->user()->id)->with('user')->orderBy('created_at', 'desc')->get() :
+            $sales = Sale::where('total_items', '!=', 0)->with('user')->orderBy('created_at', 'desc')->get();
 
         return datatables()
             ->of($sales)

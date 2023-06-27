@@ -17,7 +17,7 @@ class ProductController extends Controller
 
     public function data()
     {
-        $products = Product::all();
+        $products = Product::query()->with('category')->get();
 
         return datatables()
             ->of($products)
