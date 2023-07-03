@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\Sale;
 use App\Models\SaleDetail;
 use Illuminate\Http\Request;
 
@@ -10,9 +11,10 @@ class SaleDetailController extends Controller
 {
     public function index()
     {
+        $sale_id = session('sale_id') ? (Sale::find(session('sale_id'))->id ?? null) : null;
         $products = Product::all();
 
-        if ($sale_id = session('sale_id')) {
+        if ($sale_id) {
             return view('sale_detail.index', compact('products', 'sale_id'));
         } else {
             return redirect()->route('transaction.new');
