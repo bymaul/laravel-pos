@@ -64,7 +64,7 @@ class ExportController extends Controller
         $this->fpdf->Cell(0, 5, 'LAPORAN PENDAPATAN', 0, 1, 'C');
         $this->fpdf->Ln(3);
         $this->fpdf->SetFont('Times', 'B', 14);
-        $this->fpdf->Cell(0, 5, 'Periode ' . indonesia_date($startDate, false) . ' s/d ' . indonesia_date($endDate, false), 0, 1, 'C');
+        $this->fpdf->Cell(0, 5, 'Periode '.indonesia_date($startDate, false).' s/d '.indonesia_date($endDate, false), 0, 1, 'C');
         $this->fpdf->Ln(10);
         $this->fpdf->SetLeftMargin(25);
 
@@ -92,7 +92,7 @@ class ExportController extends Controller
             }
         }
 
-        $this->fpdf->Output('I', date('dm', strtotime($startDate)) . date('dm', strtotime($endDate)) . '_laporan_pendapatan.pdf');
+        $this->fpdf->Output('I', date('dm', strtotime($startDate)).date('dm', strtotime($endDate)).'_laporan_pendapatan.pdf');
 
         exit;
     }

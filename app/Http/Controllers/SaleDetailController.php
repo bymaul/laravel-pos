@@ -25,12 +25,12 @@ class SaleDetailController extends Controller
     {
         $details = SaleDetail::where('sale_id', $id)->with('products')->get();
 
-        $data = array();
+        $data = [];
         $total = 0;
         $total_items = 0;
 
         foreach ($details as $item) {
-            $row = array();
+            $row = [];
             $row['code'] = '<span class="badge bg-success">' . $item->products->code . '</span>';
             $row['name'] = $item->products->name;
             $row['price'] = 'Rp' . indonesia_format($item->price);
@@ -95,9 +95,9 @@ class SaleDetailController extends Controller
 
     public function loadForm($total = 0, $received = 0)
     {
-        $payed   = $total;
+        $payed = $total;
         $change = ($received != 0) ? $received - $payed : 0;
-        $data    = [
+        $data = [
             'total' => indonesia_format($total),
             'pay' => indonesia_format($payed),
             'change' => indonesia_format($change),

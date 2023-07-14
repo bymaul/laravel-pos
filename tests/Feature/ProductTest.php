@@ -11,7 +11,6 @@ use Tests\TestCase;
 
 class ProductTest extends TestCase
 {
-
     use RefreshDatabase;
     use WithoutMiddleware;
 

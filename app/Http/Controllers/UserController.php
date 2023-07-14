@@ -27,8 +27,8 @@ class UserController extends Controller
                             <i class="fas fa-ellipsis-v"></i>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a onclick="editForm(`' . route('user.update', $user->id) . '`)" class="dropdown-item" href="#">Perbarui</a></li>
-                            <li><a onclick="deleteData(`' . route('user.destroy', $user->id) . '`)" class="dropdown-item" href="#">Hapus</a></li>
+                            <li><a onclick="editForm(`'.route('user.update', $user->id).'`)" class="dropdown-item" href="#">Perbarui</a></li>
+                            <li><a onclick="deleteData(`'.route('user.destroy', $user->id).'`)" class="dropdown-item" href="#">Hapus</a></li>
                         </ul>
                     </div>
                 </div>
@@ -67,7 +67,7 @@ class UserController extends Controller
         $users = User::findOrFail($id);
         $users->name = $request->name;
         $users->email = $request->email;
-        if ($request->has('password') && !empty($request->get('password'))) {
+        if ($request->has('password') && ! empty($request->get('password'))) {
             $users->password = bcrypt($request->password);
         }
 

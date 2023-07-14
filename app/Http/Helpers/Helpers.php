@@ -7,13 +7,12 @@ function indonesia_format($number)
 
 function indonesia_date($dates, $show_day = true)
 {
-    $day_name  = array(
-        'Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jum\'at', 'Sabtu'
-    );
-    $month_name = array(
-        1 =>
-        'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
-    );
+    $day_name = [
+        'Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jum\'at', 'Sabtu',
+    ];
+    $month_name = [
+        1 => 'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember',
+    ];
 
     $year = substr($dates, 0, 4);
     $month = $month_name[(int) substr($dates, 5, 2)];
@@ -33,5 +32,5 @@ function indonesia_date($dates, $show_day = true)
 
 function add_zero_infront($value, $threshold = null)
 {
-    return sprintf("%0" . $threshold . "s", $value);
+    return sprintf('%0'.$threshold.'s', $value);
 }

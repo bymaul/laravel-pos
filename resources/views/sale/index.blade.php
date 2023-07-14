@@ -6,9 +6,9 @@
         @if (session('success'))
             <div class="alert alert-success alert-dismissible fade show" role="alert">
                 <strong>{{ session('success') }}</strong>
-                <hr>
+                {{-- <hr>
                 <a onclick="printNote('{{ route('sale.print') }}', 'Nota')" class="btn btn-success text-white">Cetak
-                    Nota</a>
+                    Nota</a> --}}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         @endif

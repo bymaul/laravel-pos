@@ -22,11 +22,11 @@ class DashboardController extends Controller
         $endDate = date('Y-m-d');
         $labelChart = [];
         $dataChart = [];
-        $bestSellers = SaleDetail::select("product_id", DB::raw('SUM(quantity) as quantity'))
+        $bestSellers = SaleDetail::select('product_id', DB::raw('SUM(quantity) as quantity'))
             ->with('products')
             ->limit(6)
-            ->groupBy("product_id")
-            ->orderByDesc("quantity")
+            ->groupBy('product_id')
+            ->orderByDesc('quantity')
             ->get();
 
         while (strtotime($startDate) <= strtotime($endDate)) {
