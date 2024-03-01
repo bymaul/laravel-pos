@@ -44,13 +44,13 @@ class SaleController extends Controller
                         </a>
                         <ul class="dropdown-menu">
                             <li>
-                                <button onclick="showDetail(`'.route('sale.show', $sales->id).'`)" class="dropdown-item">Detail</button>
+                                <button onclick="showDetail(`' . route('sale.show', $sales->id) . '`)" class="dropdown-item">Detail</button>
                             </li>
                             <li>
-                                <a href="'.route('sale.edit', $sales->id).'" class="dropdown-item">Perbarui</a>
+                                <a href="' . route('sale.edit', $sales->id) . '" class="dropdown-item">Perbarui</a>
                             </li>
                             <li>
-                                <button onclick="deleteData(`'.route('sale.destroy', $sales->id).'`)" class="dropdown-item">Hapus</button>
+                                <button onclick="deleteData(`' . route('sale.destroy', $sales->id) . '`)" class="dropdown-item">Hapus</button>
                             </li>
                         </ul>
                     </div>
@@ -106,16 +106,16 @@ class SaleController extends Controller
             ->of($detail)
             ->addIndexColumn()
             ->addColumn('code', function ($detail) {
-                return '<span class="badge bg-success">'.$detail->products['code'].'</span>';
+                return '<span class="badge bg-success">' . $detail->products['code'] . '</span>';
             })
             ->addColumn('name', function ($detail) {
                 return $detail->products['name'];
             })
             ->addColumn('price', function ($detail) {
-                return 'Rp'.indonesia_format($detail->price);
+                return 'Rp' . indonesia_format($detail->price);
             })
             ->addColumn('subtotal', function ($detail) {
-                return 'Rp'.indonesia_format($detail->subtotal);
+                return 'Rp' . indonesia_format($detail->subtotal);
             })
             ->rawColumns(['code'])
             ->make(true);

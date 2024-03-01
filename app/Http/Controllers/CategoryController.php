@@ -28,10 +28,10 @@ class CategoryController extends Controller
                         </a>
                         <ul class="dropdown-menu">
                             <li>
-                                <a onclick="editForm(`'.route('category.update', $categories->id).'`)" class="dropdown-item" href="#">Perbarui</a>
+                                <a onclick="editForm(`' . route('category.update', $categories->id) . '`)" class="dropdown-item" href="#">Perbarui</a>
                             </li>
                             <li>
-                                <a onclick="deleteData(`'.route('category.destroy', $categories->id).'`)" class="dropdown-item" href="#">Hapus</a>
+                                <a onclick="deleteData(`' . route('category.destroy', $categories->id) . '`)" class="dropdown-item" href="#">Hapus</a>
                             </li>
                         </ul>
                     </div>

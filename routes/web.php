@@ -73,4 +73,4 @@ Route::middleware('auth')->group(function () {
         ->name('profile.store');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

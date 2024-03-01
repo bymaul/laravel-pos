@@ -42,12 +42,12 @@ class ProfileController extends Controller
             'avatar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
-        $avatarName = time().'.'.$request->avatar->getClientOriginalExtension();
+        $avatarName = time() . '.' . $request->avatar->getClientOriginalExtension();
         $request->avatar->move(public_path('assets/img'), $avatarName);
 
         File::exists(public_path(Auth()->user()->avatar)) && File::delete(public_path(Auth()->user()->avatar));
 
-        $request->user()->update(['avatar' => 'assets/img/'.$avatarName]);
+        $request->user()->update(['avatar' => 'assets/img/' . $avatarName]);
 
         return back()->with('success', 'Foto profil berhasil diperbarui!');
     }

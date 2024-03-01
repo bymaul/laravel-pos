@@ -5,13 +5,15 @@
         <h3 class="text-dark mb-4">Kategori</h3>
         <div class="card shadow">
             <div class="card-header py-3">
-                <div class="row text-center text-sm-start">
-                    <div class="col-sm-5 col-12 mb-3 mb-md-0">
-                        <p class="text-primary m-0 fw-bold mt-2">Daftar Kategori</p>
+                <div class="row text-sm-start text-center">
+                    <div class="col-sm-5 col-12 mb-md-0 mb-3">
+                        <p class="text-primary fw-bold m-0 mt-2">Daftar Kategori
+                        </p>
                     </div>
-                    <div class="col-sm-7 col-12 mb-2 mb-md-0">
+                    <div class="col-sm-7 col-12 mb-md-0 mb-2">
                         <div class="d-sm-flex justify-content-sm-end">
-                            <button onclick="addForm('{{ route('category.store') }}')"
+                            <button
+                                onclick="addForm('{{ route('category.store') }}')"
                                 class="btn btn-primary btn-icon-split">
                                 <span class="icon text-white-50">
                                     <i class="fas fa-plus"></i>
@@ -23,8 +25,9 @@
                 </div>
             </div>
             <div class="card-body">
-                <div class="table-responsive table" role="grid" aria-describedby="dataTable_info">
-                    <table class="table my-0" id="dataTable">
+                <div class="table-responsive table" role="grid"
+                    aria-describedby="dataTable_info">
+                    <table class="my-0 table" id="dataTable">
                         <thead>
                             <tr>
                                 <th width="5%">No.</th>
@@ -71,23 +74,36 @@
                 $('#categoryModal').on('submit', function(e) {
                     if (!e.preventDefault()) {
                         $.ajax({
-                            url: $('#categoryModal form').attr('action'),
+                            url: $('#categoryModal form').attr(
+                                'action'),
                             type: 'post',
-                            data: $('#categoryModal form').serialize(),
+                            data: $('#categoryModal form')
+                                .serialize(),
                             success: function(data) {
-                                $('#categoryModal').modal('hide');
+                                $('#categoryModal').modal(
+                                    'hide');
                                 table.ajax.reload();
 
-                                $('#toast').addClass('text-bg-success')
-                                    .removeClass('text-bg-danger');
+                                $('#toast').addClass(
+                                        'text-bg-success')
+                                    .removeClass(
+                                        'text-bg-danger');
                                 $('#toast').toast('show');
-                                $('#toast .toast-body').text('Data berhasil disimpan!');
+                                $('#toast .toast-body')
+                                    .text(
+                                        'Data berhasil disimpan!'
+                                        );
                             },
                             error: function() {
-                                $('#toast').addClass('text-bg-danger')
-                                    .removeClass('text-bg-success');
+                                $('#toast').addClass(
+                                        'text-bg-danger')
+                                    .removeClass(
+                                        'text-bg-success');
                                 $('#toast').toast('show');
-                                $('#toast .toast-body').text('Tidak dapat menyimpan data!');
+                                $('#toast .toast-body')
+                                    .text(
+                                        'Tidak dapat menyimpan data!'
+                                        );
                                 return;
                             }
                         });
@@ -122,14 +138,16 @@
                         $('#toast').addClass('text-bg-danger')
                             .removeClass('text-bg-success');
                         $('#toast').toast('show');
-                        $('#toast .toast-body').text('Tidak dapat menampilkan data!');
+                        $('#toast .toast-body').text(
+                            'Tidak dapat menampilkan data!');
                         return;
                     });
             }
 
             function deleteData(url) {
                 $('#confirmModal').modal('show');
-                $('#confirmModal .modal-body').text('Apakah Anda yakin ingin menghapus data ini?');
+                $('#confirmModal .modal-body').text(
+                    'Apakah Anda yakin ingin menghapus data ini?');
 
                 $('#confirmDelete').click(function() {
                     $.post(url, {
@@ -143,13 +161,15 @@
                             $('#toast').addClass('text-bg-success')
                                 .removeClass('text-bg-danger');
                             $('#toast').toast('show');
-                            $('#toast .toast-body').text('Data berhasil dihapus!');
+                            $('#toast .toast-body').text(
+                                'Data berhasil dihapus!');
                         })
                         .fail((error) => {
                             $('#toast').addClass('text-bg-danger')
                                 .removeClass('text-bg-success');
                             $('#toast').toast('show');
-                            $('#toast .toast-body').text('Tidak dapat menghapus data!');
+                            $('#toast .toast-body').text(
+                                'Tidak dapat menghapus data!');
                             return;
                         })
                 })

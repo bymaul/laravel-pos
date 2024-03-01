@@ -4,35 +4,42 @@
     <div class="container-fluid">
 
         @if (session('success'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <div class="alert alert-success alert-dismissible fade show"
+                role="alert">
                 <strong>{{ session('success') }}</strong>
-                {{-- <hr>
+                {{--
+                // uncomment this if you want to print the note
+                    <hr>
                 <a onclick="printNote('{{ route('sale.print') }}', 'Nota')" class="btn btn-success text-white">Cetak
                     Nota</a> --}}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="alert"
+                    aria-label="Close"></button>
             </div>
         @endif
 
         <h3 class="text-dark mb-4">Penjualan</h3>
         <div class="card shadow">
             <div class="card-header py-3">
-                <div class="row text-center text-sm-start">
-                    <div class="col-sm-5 col-12 mb-3 mb-md-0">
-                        <p class="text-primary m-0 fw-bold mt-2">Daftar
+                <div class="row text-sm-start text-center">
+                    <div class="col-sm-5 col-12 mb-md-0 mb-3">
+                        <p class="text-primary fw-bold m-0 mt-2">Daftar
                             Penjualan</p>
                     </div>
-                    <div class="col-sm-7 col-12 mb-2 mb-md-0">
+                    <div class="col-sm-7 col-12 mb-md-0 mb-2">
                         <div class="d-sm-flex justify-content-sm-end">
-                            <a href="{{ route('transaction.index') }}" class="btn btn-primary btn-icon-split"><span
-                                    class="icon text-white-50"><i class="fas fa-plus"></i></span>
+                            <a href="{{ route('transaction.index') }}"
+                                class="btn btn-primary btn-icon-split"><span
+                                    class="icon text-white-50"><i
+                                        class="fas fa-plus"></i></span>
                                 <span class="text">Tambah</span></a>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="card-body">
-                <div class="table-responsive table" role="grid" aria-describedby="dataTable_info">
-                    <table class="table my-0" id="dataTable">
+                <div class="table-responsive table" role="grid"
+                    aria-describedby="dataTable_info">
+                    <table class="my-0 table" id="dataTable">
                         <thead>
                             <tr>
                                 <th width="5%">No.</th>
@@ -120,7 +127,8 @@
 
             function deleteData(url) {
                 $('#confirmModal').modal('show');
-                $('#confirmModal .modal-body').text('Apakah Anda yakin ingin menghapus data ini?');
+                $('#confirmModal .modal-body').text(
+                    'Apakah Anda yakin ingin menghapus data ini?');
 
                 $('#confirmDelete').click(function() {
                     $.post(url, {
@@ -134,13 +142,15 @@
                             $('#toast').addClass('text-bg-success')
                                 .removeClass('text-bg-danger');
                             $('#toast').toast('show');
-                            $('#toast .toast-body').text('Berhasil menghapus data!');
+                            $('#toast .toast-body').text(
+                                'Berhasil menghapus data!');
                         })
                         .fail((error) => {
                             $('#toast').addClass('text-bg-danger')
                                 .removeClass('text-bg-success');
                             $('#toast').toast('show');
-                            $('#toast .toast-body').text('Tidak dapat menghapus data!');
+                            $('#toast .toast-body').text(
+                                'Tidak dapat menghapus data!');
                             return;
                         })
                 })
@@ -151,12 +161,16 @@
             }
 
             function popupCenter(url, title, w, h) {
-                const dualScreenLeft = window.screenLeft !== undefined ? window.screenLeft : window.screenX;
-                const dualScreenTop = window.screenTop !== undefined ? window.screenTop : window.screenY;
+                const dualScreenLeft = window.screenLeft !== undefined ? window
+                    .screenLeft : window.screenX;
+                const dualScreenTop = window.screenTop !== undefined ? window
+                    .screenTop : window.screenY;
 
-                const width = window.innerWidth ? window.innerWidth : document.documentElement.clientWidth ? document
+                const width = window.innerWidth ? window.innerWidth : document
+                    .documentElement.clientWidth ? document
                     .documentElement.clientWidth : screen.width;
-                const height = window.innerHeight ? window.innerHeight : document.documentElement.clientHeight ? document
+                const height = window.innerHeight ? window.innerHeight : document
+                    .documentElement.clientHeight ? document
                     .documentElement.clientHeight : screen.height;
 
                 const systemZoom = width / window.screen.availWidth;

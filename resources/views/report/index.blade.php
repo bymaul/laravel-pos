@@ -5,21 +5,23 @@
         <h3 class="text-dark mb-4">Laporan</h3>
         <div class="card shadow">
             <div class="card-header py-3">
-                <div class="row text-center text-sm-start">
-                    <div class="col-sm-5 col-12 mb-3 mb-md-0">
-                        <p class="text-primary m-0 fw-bold mt-2">
+                <div class="row text-sm-start text-center">
+                    <div class="col-sm-5 col-12 mb-md-0 mb-3">
+                        <p class="text-primary fw-bold m-0 mt-2">
                             Pendapatan
                         </p>
                     </div>
-                    <div class="col-sm-7 col-12 mb-2 mb-md-0">
+                    <div class="col-sm-7 col-12 mb-md-0 mb-2">
                         <div class="d-sm-flex justify-content-sm-end">
-                            <a onclick="updatePeriod()" class="btn btn-primary btn-icon-split">
+                            <a onclick="updatePeriod()"
+                                class="btn btn-primary btn-icon-split">
                                 <span class="icon text-white-50">
                                     <i class="fas fa-calendar"></i>
                                 </span>
                                 <span class="text">Ubah Periode</span>
                             </a>
-                            <a onclick="exportPdf()" class="btn btn-danger btn-icon-split ms-2">
+                            <a onclick="exportPdf()"
+                                class="btn btn-danger btn-icon-split ms-2">
                                 <span class="icon text-white-50">
                                     <i class="fas fa-file-pdf"></i>
                                 </span>
@@ -30,8 +32,9 @@
                 </div>
             </div>
             <div class="card-body">
-                <div class="table-responsive table" role="grid" aria-describedby="dataTable_info">
-                    <table class="table my-0" id="dataTable">
+                <div class="table-responsive table" role="grid"
+                    aria-describedby="dataTable_info">
+                    <table class="my-0 table" id="dataTable">
                         <thead>
                             <tr>
                                 <th width="5%">No.</th>
@@ -82,8 +85,10 @@
                 if (!e.preventDefault()) {
                     let startDate = $('#startDate').val();
                     let endDate = $('#endDate').val();
-                    let url = "{{ route('report.data', ['startDate', 'endDate']) }}";
-                    url = url.replace('startDate', startDate).replace('endDate', endDate);
+                    let url =
+                        "{{ route('report.data', ['startDate', 'endDate']) }}";
+                    url = url.replace('startDate', startDate).replace('endDate',
+                        endDate);
 
                     if (startDate && endDate) {
                         table.ajax.url(url).load();

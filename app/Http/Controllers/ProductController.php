@@ -23,10 +23,10 @@ class ProductController extends Controller
             ->of($products)
             ->addIndexColumn()
             ->addColumn('selectAll', function ($products) {
-                return '<input type="checkbox" name="id[]" value="'.$products->id.'">';
+                return '<input type="checkbox" name="id[]" value="' . $products->id . '">';
             })
             ->addColumn('code', function ($products) {
-                return '<span class="badge bg-success">'.$products->code.'</span>';
+                return '<span class="badge bg-success">' . $products->code . '</span>';
             })
             ->addColumn('category', function ($products) {
                 return $products->category->name;
@@ -42,8 +42,8 @@ class ProductController extends Controller
                             <i class="fas fa-ellipsis-v"></i>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a onclick="editForm(`'.route('product.update', $products->id).'`)" class="dropdown-item" href="#">Perbarui</a></li>
-                            <li><a onclick="deleteData(`'.route('product.destroy', $products->id).'`)" class="dropdown-item" href="#">Hapus</a></li>
+                            <li><a onclick="editForm(`' . route('product.update', $products->id) . '`)" class="dropdown-item" href="#">Perbarui</a></li>
+                            <li><a onclick="deleteData(`' . route('product.destroy', $products->id) . '`)" class="dropdown-item" href="#">Hapus</a></li>
                         </ul>
                     </div>
                 </div>
@@ -59,7 +59,7 @@ class ProductController extends Controller
 
         preg_match('/PRD-0*(\d+)/', $products->code, $matches);
 
-        $request['code'] = 'PRD-'.add_zero_infront((int) $matches[1] + 1, 6);
+        $request['code'] = 'PRD-' . add_zero_infront((int) $matches[1] + 1, 6);
 
         $products = Product::create([
             'category_id' => $request->productCategoryId,
