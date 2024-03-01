@@ -21,10 +21,12 @@
 </head>
 
 <body onload="window.print()">
-    <button class="btn-print" style="position: absolute; right: 1rem; top: rem;" onclick="window.print()">Print</button>
+    <button class="btn-print" style="position: absolute; right: 1rem; top: rem;"
+        onclick="window.print()">Print</button>
     <div class="text-center">
-        <h2 style="margin-bottom: 5px;">Lepas Rindu</h2>
-        <p class="address">Jl. Kebon Agung, Minggir, Sleman, Yogyakarta 55562
+        <h2 style="margin-bottom: 5px;">Laravel</h2>
+        <p class="address">
+            Jl. Lorem ipsum dolor sit amet consectetur adipisicing elit.
         </p>
     </div>
     <br>
@@ -43,9 +45,11 @@
                 <td colspan="3">{{ $item->products->name }}</td>
             </tr>
             <tr>
-                <td>{{ $item->quantity }} x {{ indonesia_format($item->price) }}</td>
+                <td>{{ $item->quantity }} x {{ indonesia_format($item->price) }}
+                </td>
                 <td></td>
-                <td class="text-right">{{ indonesia_format($item->quantity * $item->price) }}</td>
+                <td class="text-right">
+                    {{ indonesia_format($item->quantity * $item->price) }}</td>
             </tr>
         @endforeach
     </table>
@@ -54,23 +58,29 @@
     <table width="100%" style="border: 0;">
         <tr>
             <td>Total Item:</td>
-            <td class="text-right">{{ indonesia_format($sale->total_items) }}</td>
+            <td class="text-right">{{ indonesia_format($sale->total_items) }}
+            </td>
         </tr>
         <tr>
             <td>Total Harga:</td>
-            <td class="text-right">{{ indonesia_format($sale->total_price) }}</td>
+            <td class="text-right">{{ indonesia_format($sale->total_price) }}
+            </td>
         </tr>
         <tr>
             <td>Total Bayar:</td>
-            <td class="text-right">{{ indonesia_format($sale->total_price) }}</td>
+            <td class="text-right">{{ indonesia_format($sale->total_price) }}
+            </td>
         </tr>
         <tr>
             <td>Diterima:</td>
-            <td class="text-right">{{ indonesia_format(session()->get('last_sale.received')) }}</td>
+            <td class="text-right">
+                {{ indonesia_format(session()->get('last_sale.received')) }}
+            </td>
         </tr>
         <tr>
             <td>Kembali:</td>
-            <td class="text-right">{{ indonesia_format(session()->get('last_sale.received') - $sale->total_price) }}
+            <td class="text-right">
+                {{ indonesia_format(session()->get('last_sale.received') - $sale->total_price) }}
             </td>
         </tr>
     </table>
@@ -86,7 +96,8 @@
             html.clientHeight, html.scrollHeight, html.offsetHeight
         );
 
-        document.cookie = "innerHeight=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        document.cookie =
+            "innerHeight=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
         document.cookie = "innerHeight=" + ((height + 50) * 0.264583);
     </script>
 </body>
