@@ -85,6 +85,7 @@
             $(function() {
                 table = $('#dataTable').DataTable({
                     serverSide: true,
+                    processing: true,
                     responsive: true,
                     autoWidth: false,
                     ajax: {
@@ -144,7 +145,7 @@
                                 $('#toast').toast('show');
                                 $('#toast .toast-body').text(
                                     'Tidak dapat menyimpan data!'
-                                    );
+                                );
                                 return;
                             })
                     }

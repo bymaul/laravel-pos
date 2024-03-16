@@ -49,6 +49,8 @@
 
             $(function() {
                 table = $('#dataTable').DataTable({
+                    serverSide: true,
+                    processing: true,
                     responsive: true,
                     autoWidth: false,
                     ajax: {
@@ -89,7 +91,7 @@
                                 $('#toast .toast-body')
                                     .text(
                                         'Berhasil menyimpan pengguna!'
-                                        );
+                                    );
                             },
                             error: function() {
                                 $('#toast').addClass(
@@ -100,7 +102,7 @@
                                 $('#toast .toast-body')
                                     .text(
                                         'Tidak dapat menyimpan pengguna!'
-                                        );
+                                    );
                                 return;
                             }
                         });

@@ -146,6 +146,7 @@
 
             table = $('#dataTable').DataTable({
                 serverSide: true,
+                processing: true,
                 responsive: true,
                 autoWidth: false,
                 ajax: {
@@ -236,7 +237,7 @@
                         $('#toast').toast('show');
                         $('#toast .toast-body').text(
                             'Tidak dapat menambahkan kuantitas!'
-                            );
+                        );
                         return;
                     });
                 });
@@ -259,7 +260,7 @@
 
             function addProduct() {
                 $.post('{{ route('transaction.store') }}', $('.productForm')
-                    .serialize())
+                        .serialize())
                     .done(response => {
                         table.ajax.reload(() => loadForm($('#inputReceive').val()));
 
@@ -267,7 +268,7 @@
                             .removeClass('text-bg-danger');
                         $('#toast').toast('show');
                         $('#toast .toast-body').text(
-                        'Berhasil menambahkan produk!');
+                            'Berhasil menambahkan produk!');
                     })
                     .fail(errors => {
                         $('#toast').addClass('text-bg-danger')
@@ -303,7 +304,8 @@
                 $('#total_price').val($('.total').text());
 
                 $.get(
-                        `{{ url('/transaction/loadform') }}/${$('.total').text()}/${received}`)
+                        `{{ url('/transaction/loadform') }}/${$('.total').text()}/${received}`
+                    )
                     .done(response => {
                         $('#inputTotal').val('Rp' + response.total);
                         $('#inputPay').val('Rp' + response.pay);
