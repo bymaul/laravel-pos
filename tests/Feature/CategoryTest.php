@@ -1,57 +1,42 @@
 <?php
 
-namespace Tests\Feature;
-
 use App\Models\Category;
 use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Tests\TestCase;
 
-class CategoryTest extends TestCase
-{
-    use RefreshDatabase;
-    use WithFaker;
+uses(\Illuminate\Foundation\Testing\RefreshDatabase::class);
 
-    /** @test */
-    public function category_page_can_be_rendered_with_data(): void
-    {
-        $user = User::factory()->create(
-            [
-                'role' => 'admin',
-            ]
-        );
+uses(\Illuminate\Foundation\Testing\WithFaker::class);
 
-        $response = $this
-            ->actingAs($user)
-            ->get('/category');
+test('category page can be rendered with data', function () {
+    $user = User::factory()->create(
+        [
+            'role' => 'admin',
+        ]
+    );
 
-        $response->assertStatus(200);
-    }
+    $response = $this
+        ->actingAs($user)
+        ->get('/category');
 
-    /** @test */
-    public function category_page_can_create_data(): void
-    {
-        Category::create(['name' => 'CategoryTest']);
+    $response->assertStatus(200);
+});
 
-        $this->assertDatabaseHas('categories', ['name' => 'CategoryTest']);
-    }
+test('category page can create data', function () {
+    Category::create(['name' => 'CategoryTest']);
 
-    /** @test */
-    public function category_page_can_update_data(): void
-    {
-        Category::create(['name' => 'CategoryTest']);
-        Category::all()->first()->update(['name' => 'UpdateCategoryTest']);
+    $this->assertDatabaseHas('categories', ['name' => 'CategoryTest']);
+});
 
-        $this->assertDatabaseHas('categories', ['name' => 'UpdateCategoryTest']);
-    }
+test('category page can update data', function () {
+    Category::create(['name' => 'CategoryTest']);
+    Category::all()->first()->update(['name' => 'UpdateCategoryTest']);
 
-    /** @test */
-    public function category_page_can_delete_data(): void
-    {
-        Category::create(['name' => 'CategoryTest']);
-        Category::all()->first()->delete();
+    $this->assertDatabaseHas('categories', ['name' => 'UpdateCategoryTest']);
+});
 
-        $this->assertDatabaseMissing('categories', ['name' => 'CategoryTest']);
-    }
-}
+test('category page can delete data', function () {
+    Category::create(['name' => 'CategoryTest']);
+    Category::all()->first()->delete();
+
+    $this->assertDatabaseMissing('categories', ['name' => 'CategoryTest']);
+});
