@@ -15,10 +15,11 @@ class SaleController extends Controller
 
     public function data()
     {
+        $isAdmin = auth()->user()->role == 'admin';
 
-        auth()->user()->isNotAdmin ?
-            $sales = Sale::where('total_items', '!=', 0)->where('user_id', auth()->user()->id)->with('user')->orderBy('created_at', 'desc')->get() :
-            $sales = Sale::where('total_items', '!=', 0)->with('user')->orderBy('created_at', 'desc')->get();
+        $isAdmin ?
+            $sales = Sale::where('total_items', '!=', 0)->with('user')->orderBy('created_at', 'desc')->get() :
+            $sales = Sale::where('total_items', '!=', 0)->where('user_id', auth()->user()->id)->with('user')->orderBy('created_at', 'desc')->get();
 
         return datatables()
             ->of($sales)
@@ -35,26 +36,40 @@ class SaleController extends Controller
             ->addColumn('cashier', function ($sales) {
                 return $sales->user->name;
             })
-            ->addColumn('action', function ($sales) {
-                return '
-                <div class="d-flex justify-content-center">
-                    <div class="dropdown no-arrow">
-                        <a class="btn btn-sm dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="true">
-                            <i class="fas fa-ellipsis-v"></i>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <button onclick="showDetail(`' . route('sale.show', $sales->id) . '`)" class="dropdown-item">Detail</button>
-                            </li>
-                            <li>
-                                <a href="' . route('sale.edit', $sales->id) . '" class="dropdown-item">Perbarui</a>
-                            </li>
-                            <li>
-                                <button onclick="deleteData(`' . route('sale.destroy', $sales->id) . '`)" class="dropdown-item">Hapus</button>
-                            </li>
-                        </ul>
+            ->addColumn('action', function ($sales) use ($isAdmin) {
+                return $isAdmin ?
+                    '
+                    <div class="d-flex justify-content-center">
+                        <div class="dropdown no-arrow">
+                            <a class="btn btn-sm dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="true">
+                                <i class="fas fa-ellipsis-v"></i>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <button onclick="showDetail(`' . route('sale.show', $sales->id) . '`)" class="dropdown-item">Detail</button>
+                                </li>
+                                <li>
+                                    <a href="' . route('sale.edit', $sales->id) . '" class="dropdown-item">Perbarui</a>
+                                </li>
+                                <li>
+                                    <button onclick="deleteData(`' . route('sale.destroy', $sales->id) . '`)" class="dropdown-item">Hapus</button>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
-                </div>
+                ' : '
+                    <div class="d-flex justify-content-center">
+                        <div class="dropdown no-arrow">
+                            <a class="btn btn-sm dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="true">
+                                <i class="fas fa-ellipsis-v"></i>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <button onclick="showDetail(`' . route('sale.show', $sales->id) . '`)" class="dropdown-item">Detail</button>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
                 ';
             })
             ->rawColumns(['action'])
