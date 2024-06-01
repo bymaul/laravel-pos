@@ -3,10 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Services\UserService;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
+    protected $userService;
+
+    public function __construct(UserService $userService)
+    {
+        $this->userService = $userService;
+    }
+
     public function index()
     {
         return view('user.index');
@@ -14,10 +22,10 @@ class UserController extends Controller
 
     public function data()
     {
-        $user = User::isNotAdmin()->get();
+        $users = $this->userService->getAllNonAdminUsers();
 
         return datatables()
-            ->of($user)
+            ->of($users)
             ->addIndexColumn()
             ->addColumn('action', function ($user) {
                 return '
@@ -40,48 +48,36 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
-        $validator = $request->validate([
+        $validatedData = $request->validate([
             'name' => 'required',
             'email' => 'required|email|unique:users',
-            'password' => 'required|min:8',
-            'password_confirmation' => 'required|same:password',
+            'password' => 'required|min:8|confirmed',
         ]);
 
-        $validator['password'] = bcrypt($request->password);
-
-        $user = new User();
-        $user->create($validator);
+        $this->userService->createUser($validatedData);
 
         return response()->json('Data berhasil disimpan', 200);
     }
 
     public function show($id)
     {
-        $users = User::findOrFail($id);
+        $user = User::findOrFail($id);
 
-        return response()->json($users);
+        return response()->json($user);
     }
 
     public function update(Request $request, $id)
     {
-        $users = User::findOrFail($id);
-        $users->name = $request->name;
-        $users->email = $request->email;
-        if ($request->has('password') && !empty($request->get('password'))) {
-            $users->password = bcrypt($request->password);
-        }
+        $user = User::findOrFail($id);
 
-        $users->update();
+        $this->userService->updateUser($user, $request->validated());
 
-        return response()->json(
-            'Data berhasil diperbarui',
-            200
-        );
+        return response()->json('Data berhasil diperbarui', 200);
     }
 
     public function destroy($id)
     {
-        User::find($id)->delete();
+        $this->userService->deleteUser($id);
 
         return response(null, 204);
     }

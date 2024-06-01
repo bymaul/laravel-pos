@@ -2,11 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
+use App\Services\CategoryService;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
+    protected $categoryService;
+
+    public function __construct(CategoryService $categoryService)
+    {
+        $this->categoryService = $categoryService;
+    }
+
     public function index()
     {
         return view('category.index');
@@ -14,7 +21,7 @@ class CategoryController extends Controller
 
     public function data()
     {
-        $categories = Category::all();
+        $categories = $this->categoryService->getAllCategories();
 
         return datatables()
             ->of($categories)
@@ -43,9 +50,7 @@ class CategoryController extends Controller
 
     public function store(Request $request)
     {
-        $category = new Category();
-        $category->name = $request->categoryName;
-        $category->save();
+        $this->categoryService->createCategory($request->categoryName);
 
         return response()->json(
             'Data berhasil disimpan!',
@@ -55,14 +60,14 @@ class CategoryController extends Controller
 
     public function show($id)
     {
-        return response()->json(Category::findOrFail($id));
+        $category = $this->categoryService->getCategoryById($id);
+
+        return response()->json($category);
     }
 
     public function update(Request $request, $id)
     {
-        $categories = Category::findOrFail($id);
-        $categories->name = $request->categoryName;
-        $categories->update();
+        $this->categoryService->updateCategory($id, $request->categoryName);
 
         return response()->json(
             'Data berhasil diperbarui!',
@@ -72,7 +77,7 @@ class CategoryController extends Controller
 
     public function destroy($id)
     {
-        Category::findOrFail($id)->delete();
+        $this->categoryService->deleteCategory($id);
 
         return response()->json(
             'Data berhasil dihapus!',

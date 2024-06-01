@@ -2,12 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Sale;
-use App\Models\SaleDetail;
+use App\Services\SaleService;
 use Illuminate\Http\Request;
 
 class SaleController extends Controller
 {
+    protected $saleService;
+
+    public function __construct(SaleService $saleService)
+    {
+        $this->saleService = $saleService;
+    }
+
     public function index()
     {
         return view('sale.index');
@@ -16,10 +22,7 @@ class SaleController extends Controller
     public function data()
     {
         $isAdmin = auth()->user()->role == 'admin';
-
-        $isAdmin ?
-            $sales = Sale::where('total_items', '!=', 0)->with('user')->orderBy('created_at', 'desc')->get() :
-            $sales = Sale::where('total_items', '!=', 0)->where('user_id', auth()->user()->id)->with('user')->orderBy('created_at', 'desc')->get();
+        $sales = $this->saleService->getSalesData();
 
         return datatables()
             ->of($sales)
@@ -78,13 +81,7 @@ class SaleController extends Controller
 
     public function create()
     {
-        $sales = new Sale();
-        $sales->total_items = 0;
-        $sales->total_price = 0;
-        $sales->user_id = auth()->user()->id;
-        $sales->save();
-
-        session(['sale_id' => $sales->id]);
+        $this->saleService->createSale();
 
         return redirect()->route('transaction.index');
     }
@@ -95,27 +92,14 @@ class SaleController extends Controller
             'received' => 'required|numeric',
         ]);
 
-        $sale = Sale::find(session('sale_id'));
-        $sale = $sale->update([
-            'total_items' => $request->total_items,
-            'total_price' => $request->total_price,
-        ]);
-
-        session(['last_sale' => [
-            'id' => session('sale_id'),
-            'received' => $request->received,
-        ]]);
-
-        session()->forget('sale_id');
+        $this->saleService->updateSale(session('sale_id'), $request->only('total_items', 'total_price', 'received'));
 
         return redirect()->route('sale.index')->with('success', 'Transaksi berhasil disimpan!');
     }
 
     public function show($id)
     {
-        $detail = SaleDetail::with('products')
-            ->where('sale_id', $id)
-            ->get();
+        $detail = $this->saleService->getSaleDetails($id);
 
         return datatables()
             ->of($detail)
@@ -145,10 +129,7 @@ class SaleController extends Controller
 
     public function destroy($id)
     {
-        $sale = Sale::find($id);
-        $sale->delete();
-
-        (session('sale_id') == $id) ? session()->forget('sale_id') : null;
+        $this->saleService->deleteSale($id);
 
         return response()->json(
             'Data berhasil dihapus!',
@@ -158,13 +139,8 @@ class SaleController extends Controller
 
     public function print()
     {
-        (session('last_sale')) ?: abort(404);
+        $data = $this->saleService->getPrintData();
 
-        $sale = Sale::find(session('last_sale')['id']);
-        $saleDetail = SaleDetail::with('products')
-            ->where('sale_id', session('last_sale')['id'])
-            ->get();
-
-        return view('sale.print', compact('sale', 'saleDetail'));
+        return view('sale.print', $data);
     }
 }

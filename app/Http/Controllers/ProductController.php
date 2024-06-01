@@ -2,22 +2,28 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
-use App\Models\Product;
+use App\Services\ProductService;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
+    protected $productService;
+
+    public function __construct(ProductService $productService)
+    {
+        $this->productService = $productService;
+    }
+
     public function index()
     {
-        $categories = Category::all()->pluck('name', 'id');
+        $categories = $this->productService->getAllCategories();
 
         return view('product.index', compact('categories'));
     }
 
     public function data()
     {
-        $products = Product::query()->with('category')->get();
+        $products = $this->productService->getAllProducts();
 
         return datatables()
             ->of($products)
@@ -55,60 +61,33 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
-        $products = Product::latest('id')->first() ?? new Product();
+        $this->productService->createProduct($request);
 
-        preg_match('/PRD-0*(\d+)/', $products->code, $matches);
-
-        $request['code'] = 'PRD-' . add_zero_infront((int) $matches[1] + 1, 6);
-
-        $products = Product::create([
-            'category_id' => $request->productCategoryId,
-            'code' => $request->code,
-            'name' => $request->productName,
-            'price' => $request->productPrice,
-        ]);
-
-        return response()->json(
-            'Data berhasil disimpan!',
-            200
-        );
+        return response()->json('Data berhasil disimpan!', 200);
     }
 
     public function show($id)
     {
-        return response()->json(Product::findOrFail($id));
+        return response()->json($this->productService->getProductById($id));
     }
 
     public function update(Request $request, $id)
     {
-        $products = Product::findOrFail($id);
-        $products->name = $request->productName;
-        $products->category_id = $request->productCategoryId;
-        $products->price = $request->productPrice;
-        $products->update();
+        $this->productService->updateProduct($request, $id);
 
-        return response()->json(
-            'Data berhasil diperbarui!',
-            200
-        );
+        return response()->json('Data berhasil diperbarui!', 200);
     }
 
     public function destroy($id)
     {
-        Product::findOrFail($id)->delete();
+        $this->productService->deleteProduct($id);
 
-        return response()->json(
-            'Data berhasil dihapus!',
-            200
-        );
+        return response()->json('Data berhasil dihapus!', 200);
     }
 
     public function deleteSelected(Request $request)
     {
-        foreach ($request->id as $id) {
-            $products = Product::findOrFail($id);
-            $products->delete();
-        }
+        $this->productService->deleteSelectedProducts($request->id);
 
         return response(null, 204);
     }
