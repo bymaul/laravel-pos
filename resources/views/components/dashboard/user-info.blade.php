@@ -10,7 +10,7 @@
                         <span>Penjualan Hari Ini</span>
                     </div>
                     <div class="text-dark fw-bold h5 mb-0">
-                        <span>{{ indonesia_format($todaySales) }}</span>
+                        <span>{{ Illuminate\Support\Number::currency($todaySales, 'IDR', 'id') }}</span>
                     </div>
                 </div>
                 <div class="col-auto"><i
@@ -29,7 +29,7 @@
                         <span>Penjualan Bulan Ini</span>
                     </div>
                     <div class="text-dark fw-bold h5 mb-0">
-                        <span>{{ indonesia_format($monthSales) }}</span>
+                        <span>{{ Illuminate\Support\Number::currency($monthSales, 'IDR', 'id') }}</span>
                     </div>
                 </div>
                 <div class="col-auto"><i
@@ -48,7 +48,8 @@
                         <span>Total Kategori</span>
                     </div>
                     <div class="text-dark fw-bold h5 mb-0">
-                        <span>{{ $categories }}</span></div>
+                        <span>{{ $categories }}</span>
+                    </div>
                 </div>
                 <div class="col-auto"><i
                         class="fas fa-tags fa-2x text-gray-300"></i></div>
@@ -66,7 +67,8 @@
                         <span>Total Produk</span>
                     </div>
                     <div class="text-dark fw-bold h5 mb-0">
-                        <span>{{ $products }}</span></div>
+                        <span>{{ $products }}</span>
+                    </div>
                 </div>
                 <div class="col-auto"><i
                         class="fas fa-box fa-2x text-gray-300"></i>

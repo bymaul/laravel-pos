@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Product;
 use App\Models\SaleDetail;
+use Illuminate\Support\Number;
 
 class SaleDetailService
 {
@@ -54,9 +55,9 @@ class SaleDetailService
             $row = [];
             $row['code'] = '<span class="badge bg-success">' . $item->products->code . '</span>';
             $row['name'] = $item->products->name;
-            $row['price'] = 'Rp' . indonesia_format($item->price);
+            $row['price'] = Number::currency($item->price, 'IDR', 'id');
             $row['quantity'] = '<input type="number" class="form-control form-control-sm quantity" data-id="' . $item->id . '" value="' . $item->quantity . '">';
-            $row['subtotal'] = 'Rp' . indonesia_format($item->subtotal);
+            $row['subtotal'] = Number::currency($item->subtotal, 'IDR', 'id');
             $row['action'] = '<a onclick="deleteData(`' . route('transaction.destroy', $item->id) . '`)" class="btn btn-sm btn-danger btn-icon-split"><span class="icon text-white-50"><i class="fas fa-trash"></i></span><span class="text">Hapus</span></a>';
             $data[] = $row;
 
@@ -82,9 +83,9 @@ class SaleDetailService
         $change = ($received != 0) ? $received - $payed : 0;
 
         return [
-            'total' => indonesia_format($total),
-            'pay' => indonesia_format($payed),
-            'change' => indonesia_format($change),
+            'total' => Number::currency($total, 'IDR', 'id'),
+            'pay' => Number::currency($payed, 'IDR', 'id'),
+            'change' => Number::currency($change, 'IDR', 'id'),
         ];
     }
 }

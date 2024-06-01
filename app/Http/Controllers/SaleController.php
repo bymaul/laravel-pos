@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Services\SaleService;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Number;
 
 class SaleController extends Controller
 {
@@ -28,13 +30,13 @@ class SaleController extends Controller
             ->of($sales)
             ->addIndexColumn()
             ->addColumn('date', function ($sales) {
-                return indonesia_date($sales->created_at->format('Y-m-d'), false);
+                return Carbon::parse($sales->created_at)->locale('id')->isoFormat('dddd, D MMMM Y');
             })
             ->addColumn('total_items', function ($sales) {
                 return $sales->total_items;
             })
             ->addColumn('total_price', function ($sales) {
-                return indonesia_format($sales->total_price);
+                return Number::currency($sales->total_price, 'IDR', 'id');
             })
             ->addColumn('cashier', function ($sales) {
                 return $sales->user->name;
@@ -111,10 +113,10 @@ class SaleController extends Controller
                 return $detail->products['name'];
             })
             ->addColumn('price', function ($detail) {
-                return 'Rp' . indonesia_format($detail->price);
+                return Number::currency($detail->price, 'IDR', 'id');
             })
             ->addColumn('subtotal', function ($detail) {
-                return 'Rp' . indonesia_format($detail->subtotal);
+                return Number::currency($detail->subtotal, 'IDR', 'id');
             })
             ->rawColumns(['code'])
             ->make(true);

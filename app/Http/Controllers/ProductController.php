@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Services\ProductService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Number;
 
 class ProductController extends Controller
 {
@@ -38,7 +39,7 @@ class ProductController extends Controller
                 return $products->category->name;
             })
             ->addColumn('price', function ($products) {
-                return indonesia_format($products->price);
+                return Number::currency($products->price, 'IDR', 'id');
             })
             ->addColumn('action', function ($products) {
                 return '

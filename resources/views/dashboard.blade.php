@@ -6,7 +6,7 @@
             <h3 class="text-dark mb-0">Dashboard</h3>
             @if (Auth()->user()->role == 'admin')
                 <a class="btn btn-primary btn-sm d-none d-sm-inline-block btn-icon-split"
-                    role="button" href="{{ route('report.index') }}">
+                    href="{{ route('report.index') }}">
                     <span class="icon text-white-50">
                         <i class="fas fa-download fa-sm text-white-50"></i>
                     </span>
@@ -30,8 +30,12 @@
                         <div
                             class="card-header d-flex justify-content-between align-items-center">
                             <h6 class="text-primary fw-bold m-0">
-                                Pendapatan {{ indonesia_date($startDate) }} s/d
-                                {{ indonesia_date($endDate) }}
+                                Pendapatan
+                                {{ \Carbon\Carbon::parse($startDate)->locale('id')->isoFormat('dddd, D MMMM Y') }}
+                                @if ($startDate !== $endDate)
+                                    s/d
+                                    {{ \Carbon\Carbon::parse($endDate)->locale('id')->isoFormat('dddd, D MMMM Y') }}
+                                @endif
                             </h6>
                             <div class="dropdown no-arrow">
                                 <button

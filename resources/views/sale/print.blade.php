@@ -45,11 +45,13 @@
                 <td colspan="3">{{ $item->products->name }}</td>
             </tr>
             <tr>
-                <td>{{ $item->quantity }} x {{ indonesia_format($item->price) }}
+                <td>{{ $item->quantity }} x
+                    {{ Illuminate\Support\Number::currency($item->price, 'IDR', 'id') }}
                 </td>
                 <td></td>
                 <td class="text-right">
-                    {{ indonesia_format($item->quantity * $item->price) }}</td>
+                    {{ Illuminate\Support\Number::currency($item->quantity * $item->price, 'IDR', 'id') }}
+                </td>
             </tr>
         @endforeach
     </table>
@@ -58,29 +60,32 @@
     <table width="100%" style="border: 0;">
         <tr>
             <td>Total Item:</td>
-            <td class="text-right">{{ indonesia_format($sale->total_items) }}
+            <td class="text-right">
+                {{ Illuminate\Support\Number::currency($sale->total_items, 'IDR', 'id') }}
             </td>
         </tr>
         <tr>
             <td>Total Harga:</td>
-            <td class="text-right">{{ indonesia_format($sale->total_price) }}
+            <td class="text-right">
+                {{ Illuminate\Support\Number::currency($sale->total_price, 'IDR', 'id') }}
             </td>
         </tr>
         <tr>
             <td>Total Bayar:</td>
-            <td class="text-right">{{ indonesia_format($sale->total_price) }}
+            <td class="text-right">
+                {{ Illuminate\Support\Number::currency($sale->total_price, 'IDR', 'id') }}
             </td>
         </tr>
         <tr>
             <td>Diterima:</td>
             <td class="text-right">
-                {{ indonesia_format(session()->get('last_sale.received')) }}
+                {{ Illuminate\Support\Number::currency(session()->get('last_sale.received'), 'IDR', 'id') }}
             </td>
         </tr>
         <tr>
             <td>Kembali:</td>
             <td class="text-right">
-                {{ indonesia_format(session()->get('last_sale.received') - $sale->total_price) }}
+                {{ Illuminate\Support\Number::currency(session()->get('last_sale.received') - $sale->total_price, 'IDR', 'id') }}
             </td>
         </tr>
     </table>

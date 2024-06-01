@@ -31,15 +31,16 @@
                                             class="badge bg-success">{{ $item->code }}</span>
                                     </td>
                                     <td>{{ $item->name }}</td>
-                                    <td>Rp{{ indonesia_format($item->price) }}
+                                    <td>{{ Illuminate\Support\Number::currency($item->price, 'IDR', 'id') }}
                                     </td>
                                     <td width="5%">
-                                        <a class="btn btn-sm btn-primary btn-icon-split"
+                                        <button type="button"
+                                            class="btn btn-sm btn-primary btn-icon-split"
                                             onclick="chooseProduct('{{ $item->id }}', '{{ $item->code }}')">
                                             <span class="icon text-white-50"><i
                                                     class="fas fa-check"></i></span>
                                             <span class="text">Pilih</span>
-                                        </a>
+                                        </button>
                                     </td>
                                 </tr>
                             @endforeach

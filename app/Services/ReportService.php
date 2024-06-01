@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Sale;
+use Illuminate\Support\Number;
 
 class ReportService
 {
@@ -27,8 +28,8 @@ class ReportService
             $data[] = [
                 'DT_RowIndex' => $no++,
                 'date' => $startDate,
-                'total_sales' => indonesia_format($total_sales),
-                'revenue' => indonesia_format($revenue),
+                'total_sales' => Number::currency($total_sales, 'IDR', 'id'),
+                'revenue' => Number::currency($revenue, 'IDR', 'id'),
             ];
 
             $total_revenue += $revenue;
@@ -40,7 +41,7 @@ class ReportService
             'DT_RowIndex' => '',
             'date' => 'Total Pendapatan',
             'total_sales' => '',
-            'revenue' => indonesia_format($total_revenue),
+            'revenue' => Number::currency($total_revenue, 'IDR', 'id'),
         ];
 
         return $data;

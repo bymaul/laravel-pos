@@ -3,7 +3,9 @@
 namespace App\Services;
 
 use App\Models\Sale;
+use Carbon\Carbon;
 use Codedge\Fpdf\Fpdf\Fpdf;
+use Illuminate\Support\Number;
 
 class ExportService
 {
@@ -33,8 +35,8 @@ class ExportService
             $row[] = [
                 'DT_RowIndex' => $no++,
                 'date' => $startDate,
-                'total_sales' => indonesia_format($total_sales),
-                'revenue' => indonesia_format($revenue),
+                'total_sales' => Number::currency($total_sales, 'IDR', 'id'),
+                'revenue' => Number::currency($revenue, 'IDR', 'id'),
             ];
 
             $total_revenue += $revenue;
@@ -46,7 +48,7 @@ class ExportService
             'DT_RowIndex' => '',
             'date' => 'Total Pendapatan',
             'total_sales' => '',
-            'revenue' => indonesia_format($total_revenue),
+            'revenue' => Number::currency($total_revenue, 'IDR', 'id'),
         ];
 
         return $row;
@@ -61,7 +63,7 @@ class ExportService
         $this->fpdf->Cell(0, 5, 'LAPORAN PENDAPATAN', 0, 1, 'C');
         $this->fpdf->Ln(3);
         $this->fpdf->SetFont('Times', 'B', 14);
-        $this->fpdf->Cell(0, 5, 'Periode ' . indonesia_date($startDate, false) . ' s/d ' . indonesia_date($endDate, false), 0, 1, 'C');
+        $this->fpdf->Cell(0, 5, 'Periode ' . Carbon::parse($startDate)->locale('id')->isoFormat('D MMMM Y') . ' s/d ' . Carbon::parse($endDate)->locale('id')->isoFormat('D MMMM Y'), 0, 1, 'C');
         $this->fpdf->Ln(10);
         $this->fpdf->SetLeftMargin(25);
 
