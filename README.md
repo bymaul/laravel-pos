@@ -50,3 +50,17 @@ php artisan serve
 ```bash
 php artisan test
 ```
+
+**Running Tests with Coverage**
+
+-   export into clover.xml
+
+```bash
+composer test:coverage
+```
+
+-   export into html
+
+```bash
+composer test:coverage-html
+```

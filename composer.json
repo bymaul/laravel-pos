@@ -54,6 +54,14 @@
         ],
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
+        ],
+        "test:coverage": [
+            "@putenv XDEBUG_MODE=coverage",
+            "./vendor/bin/pest --color=always --coverage-clover=\"output/code-coverage/clover.xml\""
+        ],
+        "test:coverage-html": [
+            "@putenv XDEBUG_MODE=coverage",
+            "./vendor/bin/pest --color=always --coverage-html=\"output/code-coverage\""
         ]
     },
     "extra": {
