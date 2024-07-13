@@ -307,9 +307,9 @@
                         `{{ url('/transaction/loadform') }}/${$('.total').text()}/${received}`
                     )
                     .done(response => {
-                        $('#inputTotal').val('Rp' + response.total);
-                        $('#inputPay').val('Rp' + response.pay);
-                        $('#inputChange').val('Rp' + response.change);
+                        $('#inputTotal').val(response.total);
+                        $('#inputPay').val(response.pay);
+                        $('#inputChange').val(response.change);
                     })
                     .fail(errors => {
                         $('#toast').addClass('text-bg-danger')
