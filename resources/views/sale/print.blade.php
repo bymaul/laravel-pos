@@ -35,7 +35,7 @@
         <p style="float: right">{{ strtoupper(auth()->user()->name) }}</p>
     </div>
     <div class="clear-both" style="clear: both;"></div>
-    <p>No: {{ add_zero_infront($sale->id, 10) }}</p>
+    <p>No: {{ addLeadingZero($sale->id, 10) }}</p>
     <p class="text-center">===================================</p>
 
     <br>

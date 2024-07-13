@@ -24,7 +24,7 @@ class ProductService
 
         preg_match('/PRD-0*(\d+)/', $lastProduct->code, $matches);
 
-        $request['code'] = 'PRD-' . add_zero_infront((int) $matches[1] + 1, 6);
+        $request['code'] = 'PRD-' . addLeadingZero((int) $matches[1] + 1, 6);
 
         return Product::create([
             'category_id' => $request->productCategoryId,
