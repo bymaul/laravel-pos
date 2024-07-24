@@ -13,20 +13,20 @@
                     </div>
                     <div class="col-sm-7 col-12 mb-md-0 mb-2">
                         <div class="d-sm-flex justify-content-sm-end">
-                            <a onclick="updatePeriod()"
+                            <button onclick="updatePeriod()"
                                 class="btn btn-primary btn-icon-split">
                                 <span class="icon text-white-50">
                                     <i class="fas fa-calendar"></i>
                                 </span>
                                 <span class="text">Ubah Periode</span>
-                            </a>
-                            <a onclick="exportPdf()"
+                            </button>
+                            <button onclick="exportPdf()"
                                 class="btn btn-danger btn-icon-split ms-2">
                                 <span class="icon text-white-50">
                                     <i class="fas fa-file-pdf"></i>
                                 </span>
                                 <span class="text">Export PDF</span>
-                            </a>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -87,9 +87,9 @@
                     let startDate = $('#startDate').val();
                     let endDate = $('#endDate').val();
                     let url =
-                        "{{ route('report.data', ['startDate', 'endDate']) }}";
-                    url = url.replace('startDate', startDate).replace('endDate',
-                        endDate);
+                        "{{ route('report.data', ['startDate', 'endDate']) }}"
+                        .replace('startDate', startDate)
+                        .replace('endDate', endDate);
 
                     if (startDate && endDate) {
                         table.ajax.url(url).load();
@@ -98,7 +98,6 @@
                 }
             });
 
-
             function updatePeriod() {
                 $('#periodModal').modal('show');
             }
@@ -106,11 +105,11 @@
             function exportPdf() {
                 let startDate = $('#startDate').val();
                 let endDate = $('#endDate').val();
-                let url = "{{ route('report.export', ['startDate', 'endDate']) }}";
-                url = url.replace('startDate', startDate).replace('endDate', endDate);
+                let url = "{{ route('report.export', ['startDate', 'endDate']) }}"
+                    .replace('startDate', startDate)
+                    .replace('endDate', endDate);
 
                 window.open(url, '_blank');
-
             }
         </script>
     @endpush
