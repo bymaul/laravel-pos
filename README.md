@@ -59,8 +59,8 @@ php artisan test
 composer test:coverage
 ```
 
--   export into html
+-   run test with ui
 
 ```bash
-composer test:coverage-html
+composer test:coverage-ui
 ```

@@ -59,7 +59,7 @@
             "@putenv XDEBUG_MODE=coverage",
             "./vendor/bin/pest --color=always --coverage-clover=\"output/code-coverage/clover.xml\""
         ],
-        "test:coverage-html": [
+        "test:coverage-ui": [
             "@putenv XDEBUG_MODE=coverage",
             "./vendor/bin/pest --color=always --coverage-html=\"output/code-coverage\""
         ]
