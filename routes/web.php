@@ -8,7 +8,6 @@ Route::get('/', [Controllers\DashboardController::class, 'index'])
     ->name('dashboard');
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
-
     Route::prefix('category')->name('category.')->group(function () {
         Route::get('data', [Controllers\CategoryController::class, 'data'])->name('data');
         Route::resource('/', Controllers\CategoryController::class)->parameters(['' => 'category']);
@@ -33,7 +32,6 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
-
     Route::prefix('transaction')->name('transaction.')->group(function () {
         Route::get('new', [Controllers\SaleController::class, 'create'])->name('new');
         Route::post('save', [Controllers\SaleController::class, 'store'])->name('save');

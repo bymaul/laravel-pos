@@ -22,7 +22,7 @@ class SaleDetailController extends Controller
         $products = Product::all();
 
         if ($sale_id) {
-            return view('sale_detail.index', compact('products', 'sale_id'));
+            return view('saleDetail.index', compact('products', 'sale_id'));
         } else {
             return redirect()->route('transaction.new');
         }

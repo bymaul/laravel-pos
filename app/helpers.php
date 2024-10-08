@@ -7,7 +7,7 @@
  * @param int|null $threshold The number of zeros to add. If not provided, the value will be returned as is.
  * @return string The value with leading zeros added.
  */
-function addLeadingZero($value, $threshold = null)
+function addLeadingZero(mixed $value, int $threshold = null): string
 {
     return sprintf('%0' . $threshold . 's', $value);
 }

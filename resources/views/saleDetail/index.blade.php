@@ -119,7 +119,7 @@
             </div>
         </div>
     </div>
-    <x-sale_detail.product :products='$products' />
+    <x-saleDetail.product :products='$products' />
     @includeIf('components.toast')
 
     @push('scripts')

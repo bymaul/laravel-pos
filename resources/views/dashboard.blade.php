@@ -16,10 +16,10 @@
         </div>
         <div class="row">
             @if (Auth()->user()->role == 'admin')
-                <x-dashboard.admin-info :todayRevenue="$todayRevenue" :monthRevenue="$monthRevenue"
+                <x-dashboard.adminInfo :todayRevenue="$todayRevenue" :monthRevenue="$monthRevenue"
                     :categories="$categories" :products="$products" />
             @else
-                <x-dashboard.user-info :todaySales="$todaySales" :monthSales="$monthSales"
+                <x-dashboard.userInfo :todaySales="$todaySales" :monthSales="$monthSales"
                     :categories="$categories" :products="$products" />
             @endif
         </div>

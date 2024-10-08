@@ -100,7 +100,7 @@
                                                     placeholder="Nama Pengguna"
                                                     name="name"
                                                     value="{{ old('name', $user->name) }}">
-                                                <x-profile.input-error
+                                                <x-profile.inputError
                                                     class="mt-2"
                                                     :messages="$errors->get(
                                                         'name',
@@ -117,7 +117,7 @@
                                                     placeholder="Email Pengguna"
                                                     name="email"
                                                     value="{{ old('name', $user->email) }}">
-                                                <x-profile.input-error
+                                                <x-profile.inputError
                                                     class="mt-2"
                                                     :messages="$errors->get(
                                                         'email',
@@ -167,7 +167,7 @@
                                             id="current_password"
                                             placeholder="Password"
                                             name="current_password">
-                                        <x-profile.input-error :messages="$errors->updatePassword->get(
+                                        <x-profile.inputError :messages="$errors->updatePassword->get(
                                             'current_password',
                                         )"
                                             class="mt-2" />
@@ -183,7 +183,7 @@
                                                     id="password"
                                                     placeholder="Password Baru"
                                                     name="password">
-                                                <x-profile.input-error
+                                                <x-profile.inputError
                                                     :messages="$errors->updatePassword->get(
                                                         'password',
                                                     )"
@@ -200,7 +200,7 @@
                                                     id="password_confirmation"
                                                     placeholder="Konfirmasi Password"
                                                     name="password_confirmation">
-                                                <x-profile.input-error
+                                                <x-profile.inputError
                                                     :messages="$errors->updatePassword->get(
                                                         'password_confirmation',
                                                     )"
