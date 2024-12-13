@@ -8,12 +8,7 @@ use Illuminate\Support\Number;
 
 class ProductController extends Controller
 {
-    protected $productService;
-
-    public function __construct(ProductService $productService)
-    {
-        $this->productService = $productService;
-    }
+    public function __construct(private readonly ProductService $productService) {}
 
     public function index()
     {

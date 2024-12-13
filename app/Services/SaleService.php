@@ -4,16 +4,18 @@ namespace App\Services;
 
 use App\Models\Sale;
 use App\Models\SaleDetail;
+use Illuminate\Support\Facades\Auth;
 
 class SaleService
 {
     public function getSalesData()
     {
-        $isAdmin = auth()->user()->role == 'admin';
+        $isAdmin = Auth::user()->role == 'admin';
+        $query = Sale::with('user')->where('total_items', '!=', 0)->orderBy('created_at', 'desc');
 
         return $isAdmin ?
-            Sale::where('total_items', '!=', 0)->with('user')->orderBy('created_at', 'desc')->get() :
-            Sale::where('total_items', '!=', 0)->where('user_id', auth()->user()->id)->with('user')->orderBy('created_at', 'desc')->get();
+            $query->get() :
+            $query->where('user_id', Auth::user()->id)->get();
     }
 
     public function createSale()
@@ -21,7 +23,7 @@ class SaleService
         $sale = new Sale();
         $sale->total_items = 0;
         $sale->total_price = 0;
-        $sale->user_id = auth()->user()->id;
+        $sale->user_id = Auth::user()->id;
         $sale->save();
 
         session(['sale_id' => $sale->id]);
@@ -31,7 +33,7 @@ class SaleService
 
     public function updateSale($saleId, $data)
     {
-        $sale = Sale::find($saleId);
+        $sale = Sale::query()->find($saleId);
         $sale->update([
             'total_items' => $data['total_items'],
             'total_price' => $data['total_price'],
@@ -56,7 +58,7 @@ class SaleService
 
     public function deleteSale($saleId)
     {
-        $sale = Sale::find($saleId);
+        $sale = Sale::query()->find($saleId);
         $sale->delete();
 
         if (session('sale_id') == $saleId) {
@@ -68,11 +70,9 @@ class SaleService
 
     public function getPrintData()
     {
-        if (!session('last_sale')) {
-            abort(404);
-        }
+        abort_if(!session('last_sale'), 404);
 
-        $sale = Sale::find(session('last_sale')['id']);
+        $sale = Sale::query()->find(session('last_sale')['id']);
         $saleDetail = SaleDetail::with('products')
             ->where('sale_id', session('last_sale')['id'])
             ->get();

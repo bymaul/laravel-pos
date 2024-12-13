@@ -16,7 +16,10 @@ class ReportService
         $data = [];
 
         while (strtotime($startDate) <= strtotime($endDate)) {
-            $sales = Sale::whereDate('created_at', $startDate)->get();
+            $sales = Sale::query()
+                ->whereDate('created_at', $startDate)
+                ->get();
+
             $total_sales = 0;
             $revenue = 0;
 

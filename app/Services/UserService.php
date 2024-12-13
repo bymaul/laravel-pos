@@ -9,13 +9,15 @@ class UserService
 {
     public function getAllNonAdminUsers()
     {
-        return User::isNotAdmin()->get();
+        return User::query()
+            ->isNotAdmin()
+            ->get();
     }
 
     public function createUser(array $data)
     {
         $data['password'] = Hash::make($data['password']);
-        return User::create($data);
+        return User::query()->create($data);
     }
 
     public function updateUser(User $user, array $data)
@@ -25,6 +27,6 @@ class UserService
 
     public function deleteUser($id)
     {
-        User::findOrFail($id)->delete();
+        User::query()->findOrFail($id)->delete();
     }
 }

@@ -6,12 +6,7 @@ use App\Services\DashboardService;
 
 class DashboardController extends Controller
 {
-    protected $dashboardService;
-
-    public function __construct(DashboardService $dashboardService)
-    {
-        $this->dashboardService = $dashboardService;
-    }
+    public function __construct(private readonly DashboardService $dashboardService) {}
 
     public function index()
     {

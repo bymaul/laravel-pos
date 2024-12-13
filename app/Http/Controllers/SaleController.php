@@ -9,12 +9,7 @@ use Illuminate\Support\Number;
 
 class SaleController extends Controller
 {
-    protected $saleService;
-
-    public function __construct(SaleService $saleService)
-    {
-        $this->saleService = $saleService;
-    }
+    public function __construct(private readonly SaleService $saleService) {}
 
     public function index()
     {

@@ -6,12 +6,7 @@ use App\Services\ExportService;
 
 class ExportController extends Controller
 {
-    protected $exportService;
-
-    public function __construct(ExportService $exportService)
-    {
-        $this->exportService = $exportService;
-    }
+    public function __construct(private readonly ExportService $exportService) {}
 
     public function export($startDate, $endDate)
     {

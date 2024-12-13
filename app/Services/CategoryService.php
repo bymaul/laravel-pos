@@ -22,12 +22,12 @@ class CategoryService
 
     public function getCategoryById($id)
     {
-        return Category::findOrFail($id);
+        return Category::query()->findOrFail($id);
     }
 
     public function updateCategory($id, $categoryName)
     {
-        $category = Category::findOrFail($id);
+        $category = Category::query()->findOrFail($id);
         $category->name = $categoryName;
         $category->update();
 
@@ -36,7 +36,7 @@ class CategoryService
 
     public function deleteCategory($id)
     {
-        $category = Category::findOrFail($id);
+        $category = Category::query()->findOrFail($id);
         $category->delete();
 
         return $category;

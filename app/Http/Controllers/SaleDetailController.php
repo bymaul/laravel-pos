@@ -9,12 +9,7 @@ use App\Services\SaleDetailService;
 
 class SaleDetailController extends Controller
 {
-    protected $saleDetailService;
-
-    public function __construct(SaleDetailService $saleDetailService)
-    {
-        $this->saleDetailService = $saleDetailService;
-    }
+    public function __construct(private readonly SaleDetailService $saleDetailService) {}
 
     public function index()
     {

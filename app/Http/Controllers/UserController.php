@@ -8,12 +8,7 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    protected $userService;
-
-    public function __construct(UserService $userService)
-    {
-        $this->userService = $userService;
-    }
+    public function __construct(private readonly UserService $userService) {}
 
     public function index()
     {
@@ -61,14 +56,14 @@ class UserController extends Controller
 
     public function show($id)
     {
-        $user = User::findOrFail($id);
+        $user = User::query()->findOrFail($id);
 
         return response()->json($user);
     }
 
     public function update(Request $request, $id)
     {
-        $user = User::findOrFail($id);
+        $user = User::query()->findOrFail($id);
 
         $this->userService->updateUser($user, $request->validated());
 

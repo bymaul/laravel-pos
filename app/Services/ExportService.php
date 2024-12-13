@@ -9,12 +9,8 @@ use Illuminate\Support\Number;
 
 class ExportService
 {
-    protected $fpdf;
 
-    public function __construct(Fpdf $fpdf)
-    {
-        $this->fpdf = $fpdf;
-    }
+    public function __construct(private readonly Fpdf $fpdf) {}
 
     public function getData($startDate, $endDate)
     {
@@ -23,7 +19,10 @@ class ExportService
         $row = [];
 
         while (strtotime($startDate) <= strtotime($endDate)) {
-            $sales = Sale::whereDate('created_at', $startDate)->get();
+            $sales = Sale::query()
+                ->whereDate('created_at', $startDate)
+                ->get();
+
             $total_sales = 0;
             $revenue = 0;
 

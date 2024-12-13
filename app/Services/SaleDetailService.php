@@ -10,12 +10,12 @@ class SaleDetailService
 {
     public function getSaleDetails($saleId)
     {
-        return SaleDetail::where('sale_id', $saleId)->with('products')->get();
+        return SaleDetail::with('products')->where('sale_id', $saleId)->get();
     }
 
     public function addSaleDetail($saleId, $productId)
     {
-        $product = Product::find($productId);
+        $product = Product::query()->find($productId);
 
         if (!$product) {
             return response()->json('Data gagal disimpan', 400);
@@ -34,7 +34,7 @@ class SaleDetailService
 
     public function updateSaleDetail($id, $quantity)
     {
-        $detail = SaleDetail::find($id);
+        $detail = SaleDetail::query()->find($id);
         $detail->quantity = $quantity;
         $detail->subtotal = $detail->price * $quantity;
         $detail->update();
@@ -42,7 +42,7 @@ class SaleDetailService
 
     public function deleteSaleDetail($id)
     {
-        SaleDetail::find($id)->delete();
+        SaleDetail::query()->find($id)->delete();
     }
 
     public function calculateTotals($details)

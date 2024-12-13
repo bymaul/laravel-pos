@@ -7,12 +7,7 @@ use Illuminate\Http\Request;
 
 class ReportController extends Controller
 {
-    protected $reportService;
-
-    public function __construct(ReportService $reportService)
-    {
-        $this->reportService = $reportService;
-    }
+    public function __construct(private readonly ReportService $reportService) {}
 
     public function index()
     {

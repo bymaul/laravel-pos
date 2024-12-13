@@ -10,12 +10,7 @@ use Illuminate\Support\Facades\Redirect;
 
 class ProfileController extends Controller
 {
-    protected $profileService;
-
-    public function __construct(ProfileService $profileService)
-    {
-        $this->profileService = $profileService;
-    }
+    public function __construct(private readonly ProfileService $profileService) {}
 
     public function edit(Request $request)
     {
